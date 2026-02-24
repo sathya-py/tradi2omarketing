@@ -1,0 +1,21 @@
+{
+  "version": "2.3.0",
+  "notes": "Release 2.3.0 — Release engineering infrastructure",
+  "pub_date": "2026-02-24T00:00:00Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "",
+      "url": "https://github.com/sathya-py/tradi2o/releases/download/v2.3.0/vista-tradi2o-2.3.0-x64.msi.zip"
+    },
+    "linux-x86_64": {
+      "signature": "",
+      "url": "https://github.com/sathya-py/tradi2o/releases/download/v2.3.0/vista-tradi2o-2.3.0-amd64.AppImage.tar.gz"
+    }
+  },
+  "product_version": "2.3.0",
+  "build": 2026022402,
+  "channel": "stable",
+  "release_notes_url": "https://tradi2o.in/releases/2.3.0",
+  "min_supported_build": 2026022402,
+  "published_at": "2026-02-24T00:00:00Z"
+}

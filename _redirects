@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects
+# /brochure -> /index.html (canonical)
+/brochure  /  301
