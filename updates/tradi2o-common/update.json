@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "library",
+  "description": "Shared types and contracts",
+  "build": 2026022402,
+  "module": "tradi2o-common",
+  "published_at": ""
+}

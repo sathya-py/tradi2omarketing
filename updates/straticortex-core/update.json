@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "plugin-core",
+  "description": "Analytics engine core",
+  "build": 2026022402,
+  "module": "straticortex-core",
+  "published_at": ""
+}

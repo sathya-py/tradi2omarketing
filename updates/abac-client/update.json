@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "library",
+  "description": "ABAC permission client",
+  "build": 2026022402,
+  "module": "abac-client",
+  "published_at": ""
+}

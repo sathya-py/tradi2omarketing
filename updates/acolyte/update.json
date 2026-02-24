@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "plugin",
+  "description": "Learning engine plugin",
+  "build": 2026022402,
+  "module": "acolyte",
+  "published_at": ""
+}

@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "ffi-bridge",
+  "description": "Rust FFI bridge (.NET to Rust)",
+  "build": 2026022402,
+  "module": "relay",
+  "published_at": ""
+}

@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "gateway",
+  "description": ".NET API gateway",
+  "build": 2026022402,
+  "module": "nexus",
+  "published_at": ""
+}

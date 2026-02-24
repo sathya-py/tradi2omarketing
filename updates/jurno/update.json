@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "service",
+  "description": "Audit logging service",
+  "build": 2026022402,
+  "module": "jurno",
+  "published_at": ""
+}

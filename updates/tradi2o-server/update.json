@@ -1,0 +1,21 @@
+{
+  "version": "2.3.0",
+  "notes": "",
+  "pub_date": "2026-02-24T00:00:00Z",
+  "platforms": {
+    "linux-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "linux-arm64": {
+      "signature": "",
+      "url": ""
+    }
+  },
+  "product_version": "2.3.0",
+  "build": 2026022402,
+  "channel": "stable",
+  "release_notes_url": "",
+  "min_supported_build": 0,
+  "published_at": ""
+}

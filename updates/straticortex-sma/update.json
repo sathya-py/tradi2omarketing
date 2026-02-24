@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "plugin",
+  "description": "SMA indicator plugin",
+  "build": 2026022402,
+  "module": "straticortex-sma",
+  "published_at": ""
+}

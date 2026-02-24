@@ -1,0 +1,10 @@
+{
+  "version": "2.3.0",
+  "status": "unreleased",
+  "channel": "stable",
+  "type": "plugin",
+  "description": "Zerodha broker plugin",
+  "build": 2026022402,
+  "module": "dataex-zerodha",
+  "published_at": ""
+}
