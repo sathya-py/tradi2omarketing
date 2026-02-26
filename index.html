@@ -82,17 +82,18 @@
         background: linear-gradient(
           90deg,
           transparent 0%,
-          rgba(212, 175, 55, 0.1) 20%,
+          rgba(212, 175, 55, 0.05) 20%,
           var(--accent-gold) 50%,
-          rgba(212, 175, 55, 0.1) 80%,
+          rgba(212, 175, 55, 0.05) 80%,
           transparent 100%
         );
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 2px rgba(212, 175, 55, 1);
+        -webkit-text-stroke: 1px rgba(212, 175, 55, 0.6);
         animation: gold-shimmer 12s infinite linear;
         will-change: background-position;
+        padding: 0.1em 0;
       }
 
       header.hero {
@@ -103,7 +104,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 4rem 2rem;
+        padding: 6rem 1.5rem;
         position: relative;
         background: var(--hero-bg) center/cover no-repeat;
         background-attachment: scroll;
@@ -122,28 +123,48 @@
       }
 
       .hero h1 {
-        font-size: clamp(3.5rem, 12vw, 9.5rem);
+        font-size: clamp(3rem, 10vw, 9.5rem);
         font-weight: 900;
         text-transform: uppercase;
         margin: 1.5rem 0;
-        line-height: 0.85;
-        letter-spacing: -0.06em;
+        line-height: 0.95;
+        letter-spacing: -0.04em;
         transform: translateZ(0);
       }
 
       .hero .subtitle {
         color: var(--accent-gold);
         font-weight: 800;
-        font-size: clamp(0.9rem, 2vw, 1.25rem);
+        font-size: clamp(0.8rem, 2vw, 1.25rem);
         letter-spacing: 0.2em;
       }
 
+      .hero-desc {
+        font-size: 1.1rem;
+        color: var(--text-main);
+        max-width: 800px;
+        margin: 2rem auto 0rem;
+        opacity: 0.9;
+        line-height: 1.8;
+      }
+
+      .hero-tags {
+        font-size: 0.8rem;
+        color: var(--text-main);
+        max-width: 800px;
+        margin: 0.5rem auto;
+        opacity: 0.7;
+        line-height: 1.8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
       .vista-container {
-        margin: 10vh 0;
+        margin: 5vh 0;
         display: flex;
         justify-content: center;
         width: 100%;
-        min-height: 60vh;
+        min-height: 40vh;
         align-items: center;
       }
 
@@ -166,14 +187,14 @@
         width: 100%;
         border-radius: 12px;
         box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 20px var(--glow-color);
-        transform: scale(0.85);
+        transform: scale(0.9);
         transition: transform 1.5s cubic-bezier(0.2, 1, 0.2, 1), box-shadow 1.5s ease;
         cursor: pointer;
         overflow: hidden;
         border: 1px solid var(--border-glass);
         will-change: transform;
         position: relative;
-        aspect-ratio: 1100 / 688;
+        aspect-ratio: 16 / 10;
         z-index: 5;
       }
 
@@ -205,31 +226,63 @@
       .vista-container:hover .vista-frame,
       .vista-container:focus-within .vista-frame {
         transform: scale(1);
-        box-shadow: 0 60px 120px rgba(0,0,0,0.6), 0 0 40px var(--glow-color);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 40px var(--glow-color);
         z-index: 50;
       }
 
-      .container { max-width: 1400px; margin: 0 auto; padding: 10rem 3rem; }
+      .container { max-width: 1400px; margin: 0 auto; padding: 8rem 2rem; }
+
+      .section-tag { color: var(--accent-gold); font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+      .section-title { font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 900; margin: 1.5rem 0; text-transform: uppercase; line-height: 1.1; }
+      .section-desc { max-width: 1200px; margin: 0 auto 0.5rem; color: var(--text-main); font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.6; font-weight: 300; opacity: 0.9; }
 
       .pipeline-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 3rem;
-        margin-top: 6rem;
+        gap: 2.5rem;
+        margin-top: 4rem;
       }
 
       .pipeline-col { display: flex; flex-direction: column; gap: 0.75rem; }
       .pipeline-col .stage-tag { font-size: 0.65rem; opacity: 0.5; font-weight: 800; }
-      .pipeline-col h3 { font-size: 1.2rem; color: var(--accent-gold); text-transform: uppercase; }      
+      .pipeline-col h3 { font-size: 1.1rem; color: var(--accent-gold); text-transform: uppercase; }
       .pipeline-col p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
-      .mission-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 6rem; align-items: center; }
-      .graph-container { height: 240px; display: flex; align-items: flex-end; gap: 15%; position: relative; padding-bottom: 15px; }
+      .methodology-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 3rem;
+        margin-top: 4rem;
+      }
+
+      .methodology-step {
+        text-align: center;
+        flex: 1;
+        min-width: 180px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1.8s cubic-bezier(0.2, 1, 0.2, 1);
+        filter: blur(10px);
+      }
+
+      .methodology-step .step-num { color: var(--accent-gold); font-size: 2.5rem; margin-bottom: 0.75rem; font-weight: 900; transition: text-shadow 2.5s ease-in-out; }
+      .methodology-step .step-label { font-size: 0.75rem; opacity: 0.8; letter-spacing: 0.1em; }
+
+      .mission-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 4rem; align-items: center; }
+      .graph-container { height: 200px; display: flex; align-items: flex-end; gap: 12%; position: relative; padding-bottom: 15px; }
       @keyframes bar-reveal { from { transform: scaleY(0); } to { transform: scaleY(1); } }
       .bar { width: 18%; transform-origin: bottom; animation: bar-reveal 2s cubic-bezier(0.2, 1, 0.2, 1) forwards; }
 
+      .apply-box {
+        border: 1px solid var(--accent-gold);
+        padding: 8rem 2rem;
+        background: radial-gradient(circle at center, oklch(75% 0.12 85 / 0.05), transparent);
+        text-align: center;
+      }
+
       .btn {
-        padding: 1.25rem 4rem;
+        padding: 1.1rem 3rem;
         font-weight: 900;
         text-decoration: none;
         display: inline-block;
@@ -239,6 +292,7 @@
         background: transparent;
         text-transform: uppercase;
         letter-spacing: 0.1em;
+        font-size: 0.9rem;
       }
 
       .btn:hover {
@@ -261,7 +315,6 @@
         transform: translateY(0);
       }
 
-      /* STAGGERED REVEAL */
       .reveal-stagger > * {
         opacity: 0;
         transform: translateY(20px);
@@ -278,13 +331,6 @@
       .reveal-stagger.active > *:nth-child(4) { transition-delay: 0.4s; }
       .reveal-stagger.active > *:nth-child(5) { transition-delay: 0.5s; }
 
-      /* METHODOLOGY ANIMATION */
-      .methodology-step {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 1.8s cubic-bezier(0.2, 1, 0.2, 1);
-        filter: blur(10px);
-      }
       .reveal.active .methodology-step {
         opacity: 1;
         transform: translateY(0);
@@ -295,10 +341,7 @@
       .methodology-step:nth-child(3) { transition-delay: 1.2s; }
       .methodology-step:nth-child(4) { transition-delay: 1.7s; }
       .methodology-step:nth-child(5) { transition-delay: 2.2s; }
-      
-      .step-num {
-        transition: text-shadow 2.5s ease-in-out;
-      }
+
       .reveal.active .methodology-step .step-num {
         text-shadow: 0 0 25px var(--glow-color);
       }
@@ -309,10 +352,9 @@
         transform: translateY(20px);
         animation: heroFadeUp 1.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
       }
-      
-      /* Special handling for shimmering hero text to prevent animation override */
+
       h1.glow-text.hero-load {
-        animation: heroFadeUp 1.5s cubic-bezier(0.2, 1, 0.2, 1) forwards, 
+        animation: heroFadeUp 1.5s cubic-bezier(0.2, 1, 0.2, 1) forwards,
                    gold-shimmer 12s infinite linear;
       }
 
@@ -324,10 +366,47 @@
       .hero-delay-3 { animation-delay: 0.6s; }
       .hero-delay-4 { animation-delay: 0.8s; }
 
+      /* MOBILE OVERRIDES */
       @media (max-width: 1100px) {
         .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
         .mission-grid { grid-template-columns: 1fr; gap: 4rem; }
-        .hero h1 { font-size: 5rem; }
+      }
+
+      @media (max-width: 768px) {
+        #logo-container { top: 1.5rem !important; left: 1.5rem !important; }
+        #logo-main { height: 1.8rem !important; }
+        #theme-toggle { top: 1.5rem !important; right: 1.5rem !important; }
+
+        .container { padding: 4rem 1.5rem; }
+        header.hero { padding: 8rem 1.5rem 4rem; }
+        .hero h1 { font-size: 3.5rem; line-height: 1.1; letter-spacing: -0.02em; }
+        .hero .subtitle { font-size: 0.75rem; letter-spacing: 0.15em; }
+        .hero-desc { font-size: 0.95rem; line-height: 1.6; margin-top: 1.5rem; }
+        .hero-tags { font-size: 0.7rem; }
+
+        .pipeline-grid { grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
+        .mission-grid { gap: 3rem; }
+
+        .methodology-grid { gap: 2.5rem; }
+        .methodology-step { min-width: 140px; flex: 1 1 40%; }
+        .methodology-step .step-num { font-size: 2rem; }
+
+        .section-tag { font-size: 0.75rem; }
+        .section-title { font-size: 1.8rem; line-height: 1.2; overflow-wrap: break-word; word-break: normal; }
+        .section-desc { font-size: 0.95rem; }
+
+        .apply-box { padding: 3rem 1.25rem; }
+        .apply-box h2 { font-size: 1.6rem; margin: 1rem 0 2rem; letter-spacing: -0.01em; }
+        .apply-box .section-desc { margin-bottom: 3rem; }
+
+        .btn { padding: 1rem 2rem; width: 100%; text-align: center; }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 { font-size: 2.8rem; }
+        .methodology-step { flex: 1 1 100%; }
+        .apply-box h2 { font-size: 1.4rem; }
+        .section-tag { font-size: 0.7rem; }
       }
     </style>
   </head>
@@ -346,10 +425,10 @@
       <div class="hero-content">
         <span class="subtitle mono hero-load hero-delay-1">Capital, Engineered</span>
         <h1 class="glow-text hero-load hero-delay-2">Operate Above<br>The Noise</h1>
-        <p class="mono hero-load hero-delay-3" style="font-size: 1.1rem; color: var(--text-main); max-width: 800px; margin: 2rem auto 0rem; opacity:0.9; line-height:1.8;">
+        <p class="mono hero-desc hero-load hero-delay-3">
           Our time is finite • Our capital should operate continuously
         </p>
-        <p class="hero-load hero-delay-3" style="font-size: 0.8rem; color: var(--text-main); max-width: 800px; margin: 0.5rem auto; opacity:0.7; line-height:1.8; text-transform: uppercase; letter-spacing: 0.1em;">
+        <p class="hero-tags hero-load hero-delay-3">
           Quiet | Powerful | Relentless
         </p>
         <div class="hero-load hero-delay-4" style="margin-top: 5rem;">
@@ -361,13 +440,13 @@
     <!-- SECTION: EFFORTLESS GROWTH -->
     <section class="container">
       <div class="reveal reveal-stagger" style="text-align:center;">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">01. Effortless Growth</span>
-        <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 900; margin: 1.5rem 0; text-transform: uppercase; line-height:1.1;">Wealth is Not Managed<br>but Designed</h2>
-        <p style="max-width: 1200px; margin: 0 auto 0.5rem; color:var(--text-main); font-size:1.4rem; line-height:1.6; font-weight:300; opacity:0.9;">
-          True wealth not reactive • Family capital » Engineered • It operates within structure       
+        <span class="section-tag mono">01. Effortless Growth</span>
+        <h2 class="section-title">Wealth is Not Managed<br>but Designed</h2>
+        <p class="section-desc">
+          True wealth not reactive • Family capital » Engineered • It operates within structure
         </p>
         <p class="mono" style="font-size: 0.75rem; color: var(--accent-gold); opacity: 0.8; letter-spacing: 0.15em;">
-          Income builds lifestyle • Structure builds freedom ⫻ Well Aligned • Validated • Precise  
+          Income builds lifestyle • Structure builds freedom « Well Aligned • Validated • Precise
         </p>
       </div>
 
@@ -375,7 +454,7 @@
         <div class="vista-bounce-wrapper">
           <div class="vista-frame">
             <img src="images/tradi2o-lobby.png" class="img-dark-ui" alt="Vista Light Interface">
-            <img src="images/tradi2o-lobby-dark.png" class="img-light-ui" alt="Vista Dark Interface">    
+            <img src="images/tradi2o-lobby-dark.png" class="img-light-ui" alt="Vista Dark Interface">
           </div>
         </div>
       </div>
@@ -384,8 +463,8 @@
     <!-- SECTION: PRECISION WITHOUT FRICTION -->
     <section class="container" style="border-top: 1px solid var(--border-glass);">
       <div class="reveal reveal-stagger">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">02. Precision Without Friction</span>
-        <h2 style="font-size:clamp(2.5rem, 6vw, 4.5rem); margin: 1rem 0; font-weight:900;">Power Should Feel Effortless</h2>
+        <span class="section-tag mono">02. Precision Without Friction</span>
+        <h2 class="section-title">Power Should Feel Effortless</h2>
       </div>
 
       <div class="pipeline-grid reveal reveal-stagger">
@@ -412,54 +491,54 @@
       </div>
     </section>
 
-    <!-- SECTION: STRUCTURED ENGAGEMENT (NEW ANCHOR) -->
+    <!-- SECTION: STRUCTURED ENGAGEMENT -->
     <section class="container" style="background: radial-gradient(circle at top right, oklch(75% 0.12 85 / 0.03), transparent);">
       <div class="reveal" style="text-align:center;">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">The Methodology</span>    
-        <h2 style="font-size:clamp(2.5rem, 5vw, 4.5rem); margin: 2rem 0; font-weight:900; text-transform: uppercase;">Structured Engagement.</h2>
-        <p style="max-width:900px; margin: 0 auto 4rem; color:var(--text-muted); font-size:1.4rem; line-height:1.6;">
+        <span class="section-tag mono">The Methodology</span>
+        <h2 class="section-title">Structured Engagement.</h2>
+        <p class="section-desc" style="max-width:900px; margin: 0 auto 2rem;">
           Every time you enter the market, you follow the same disciplined sequence. Repetition builds clarity. Clarity builds advantage. Advantage compounds.
         </p>
 
-        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;" class="mono">
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">01</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Declare Intent</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">02</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Validate Fit</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">03</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Execute Guardrails</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">04</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Review Outcomes</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">05</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Refine Posture</div>
-            </div>
+        <div class="methodology-grid mono">
+          <div class="methodology-step">
+            <div class="step-num">01</div>
+            <div class="step-label">Declare Intent</div>
+          </div>
+          <div class="methodology-step">
+            <div class="step-num">02</div>
+            <div class="step-label">Validate Fit</div>
+          </div>
+          <div class="methodology-step">
+            <div class="step-num">03</div>
+            <div class="step-label">Execute Guardrails</div>
+          </div>
+          <div class="methodology-step">
+            <div class="step-num">04</div>
+            <div class="step-label">Review Outcomes</div>
+          </div>
+          <div class="methodology-step">
+            <div class="step-num">05</div>
+            <div class="step-label">Refine Posture</div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- SECTION: THE LUXURY OF STRUCTURE -->
-    <section class="container" style="">
+    <section class="container">
       <div class="mission-grid">
         <div class="graph-container reveal">
           <div style="position: absolute; bottom: 40%; left: 0; width: 100%; border-top: 1.5px dashed var(--accent-gold); opacity: 0.5; z-index:1;">
             <span class="mono" style="position: absolute; right: 0; top: -18px; font-size: 0.6rem; color:var(--accent-gold); font-weight:800;">Legacy</span>
           </div>
           <div class="bar" style="height:35%; background: var(--border-glass);"></div>
-          <div class="bar" style="height:65%; background: var(--accent-secondary); opacity:0.8;"></div>  
+          <div class="bar" style="height:65%; background: var(--accent-secondary); opacity:0.8;"></div>
           <div class="bar" style="height:95%; background: var(--accent-primary); box-shadow: 0 0 40px var(--accent-primary);"></div>
         </div>
         <div class="reveal reveal-stagger">
-          <h2 style="font-size:clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; font-weight:900;">Structure Is The<br>Ultimate Advantage</h2>
-          <p style="color:var(--text-muted); font-size:1.2rem; margin-bottom: 3rem; max-width:650px;">   
+          <h2 class="section-title">Structure Is The<br>Ultimate Advantage</h2>
+          <p class="section-desc" style="margin-bottom: 3rem; max-width:650px; opacity: 0.7;">
             Structure that holds — even when life is busy. Designed for decades, not days. The result isn’t excitement. It’s control.
           </p>
           <div style="display:flex; flex-direction:column; gap:1.5rem; color:var(--accent-gold); font-weight:800; font-size:1.2rem;" class="mono">
@@ -474,10 +553,10 @@
 
     <!-- SECTION: OWN THE INFRASTRUCTURE -->
     <section id="early-access" class="container" style="text-align:center;">
-      <div class="reveal reveal-stagger" style="border: 1px solid var(--accent-gold); padding: 8rem 2rem; background: radial-gradient(circle at center, oklch(75% 0.12 85 / 0.05), transparent);">
-        <span class="mono" style="color:var(--accent-gold); font-size:1rem;">The Future Is Private Before It Is Public</span>
-        <h2 style="margin: 2rem 0; font-size: clamp(3rem, 7vw, 5rem); font-weight:900;">Own The Infrastructure</h2>
-        <p style="max-width:750px; margin: 0 auto 5rem; color:var(--text-muted); font-size:1.2rem; line-height:1.8;">
+      <div class="reveal reveal-stagger apply-box">
+        <span class="section-tag mono">The Future Is Private Before It Is Public</span>
+        <h2 class="section-title">Own The Infrastructure</h2>
+        <p class="section-desc" style="max-width:750px; margin: 0 auto 5rem; opacity: 0.7;">
           Tradi2o is opening private nodes to a limited 2026 cohort — individuals and firms ready to operate capital at a higher tier. Ownership of the operating layer.
         </p>
         <a href="mailto:testing@tradi2o.com?subject=LEA%20Exclusive%20Interest" class="btn mono">Apply Selectively</a>
@@ -500,7 +579,7 @@
           <p style="margin-bottom: 0.5rem; text-align: center"><strong>DATA ACCURACY:</strong> ANALYTICS AND MARKET DATA ARE SOURCED FROM THIRD PARTIES AND MAY NOT ALWAYS BE ACCURATE, COMPLETE, OR TIMELY. USERS SHOULD INDEPENDENTLY VERIFY ALL INFORMATION.</p>
           <p style="margin-bottom: 0.5rem; text-align: center"><strong>USER RESPONSIBILITY:</strong> USERS ARE SOLELY RESPONSIBLE FOR ALL TRADES EXECUTED THROUGH THEIR BROKER ACCOUNTS. TRADI2O DOES NOT EXECUTE TRADES ON BEHALF OF USERS AND DOES NOT MAKE TRADING DECISIONS.</p>
           <p style="margin-bottom: 0.5rem; text-align: center"><strong>COMPLIANCE:</strong> ALL BROKER INTEGRATIONS ADHERE TO SEBI GUIDELINES FOR ALGORITHMIC TRADING. USERS ARE RESPONSIBLE FOR OBTAINING NECESSARY APPROVALS AND UNDERSTANDING THE RISKS ASSOCIATED WITH AUTOMATED EXECUTION.</p>
-          <p style="margin-bottom: 0rem; text-align: center">&copy; 2026 TRADI2O. ALL RIGHTS RESERVED. DESIGNED FOR INDIAN EQUITY, ETF &amp; F&amp;O MARKETS. CONTINUOUSLY EVOLVED &amp; IMPROVED.</p>
+          <p style="margin-bottom: 0rem; text-align: center">&copy; 2026 TRADI2O. ALL RIGHTS RESERVED. DESIGNED FOR INDIAN EQUITY, ETF & F&O MARKETS. CONTINUOUSLY EVOLVED & IMPROVED.</p>
         </div>
       </div>
     </footer>
