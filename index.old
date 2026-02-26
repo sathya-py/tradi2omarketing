@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-    <title>Tradi2o — Capital Operating Infrastructure</title>
+    <title>Tradi2o - Super-Algo Engine for the Family Office</title>
 
     <!-- Preload critical hero background images -->
     <link rel="preload" as="image" href="images/darkbg.jpg" type="image/jpeg" />
     <link rel="preload" as="image" href="images/lightbg.jpg" type="image/jpeg" />
     <link href="https://fonts.googleapis.com" rel="stylesheet">
-
+    
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
@@ -47,8 +47,8 @@
       }
 
       body, header, section, footer, .glass-card, .btn, .vista-frame, .pipeline-col {
-        transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                    color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                    color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
                     border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                     box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -210,7 +210,7 @@
       }
 
       .container { max-width: 1400px; margin: 0 auto; padding: 10rem 3rem; }
-
+      
       .pipeline-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -220,7 +220,7 @@
 
       .pipeline-col { display: flex; flex-direction: column; gap: 0.75rem; }
       .pipeline-col .stage-tag { font-size: 0.65rem; opacity: 0.5; font-weight: 800; }
-      .pipeline-col h3 { font-size: 1.2rem; color: var(--accent-gold); text-transform: uppercase; }      
+      .pipeline-col h3 { font-size: 1.2rem; color: var(--accent-gold); text-transform: uppercase; }
       .pipeline-col p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
       .mission-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 6rem; align-items: center; }
@@ -248,81 +248,8 @@
         transform: translateY(-4px);
       }
 
-      /* REVEAL SYSTEM */
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 1.2s cubic-bezier(0.2, 1, 0.2, 1),
-                    transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
-        will-change: transform, opacity;
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* STAGGERED REVEAL */
-      .reveal-stagger > * {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 1s cubic-bezier(0.2, 1, 0.2, 1),
-                    transform 1s cubic-bezier(0.2, 1, 0.2, 1);
-      }
-      .reveal-stagger.active > * {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .reveal-stagger.active > *:nth-child(1) { transition-delay: 0.1s; }
-      .reveal-stagger.active > *:nth-child(2) { transition-delay: 0.2s; }
-      .reveal-stagger.active > *:nth-child(3) { transition-delay: 0.3s; }
-      .reveal-stagger.active > *:nth-child(4) { transition-delay: 0.4s; }
-      .reveal-stagger.active > *:nth-child(5) { transition-delay: 0.5s; }
-
-      /* METHODOLOGY ANIMATION */
-      .methodology-step {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 1.8s cubic-bezier(0.2, 1, 0.2, 1);
-        filter: blur(10px);
-      }
-      .reveal.active .methodology-step {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
-      .methodology-step:nth-child(1) { transition-delay: 0.2s; }
-      .methodology-step:nth-child(2) { transition-delay: 0.7s; }
-      .methodology-step:nth-child(3) { transition-delay: 1.2s; }
-      .methodology-step:nth-child(4) { transition-delay: 1.7s; }
-      .methodology-step:nth-child(5) { transition-delay: 2.2s; }
-      
-      .step-num {
-        transition: text-shadow 2.5s ease-in-out;
-      }
-      .reveal.active .methodology-step .step-num {
-        text-shadow: 0 0 25px var(--glow-color);
-      }
-
-      /* PAGE LOAD ANIMATION */
-      .hero-load {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: heroFadeUp 1.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
-      }
-      
-      /* Special handling for shimmering hero text to prevent animation override */
-      h1.glow-text.hero-load {
-        animation: heroFadeUp 1.5s cubic-bezier(0.2, 1, 0.2, 1) forwards, 
-                   gold-shimmer 12s infinite linear;
-      }
-
-      @keyframes heroFadeUp {
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .hero-delay-1 { animation-delay: 0.2s; }
-      .hero-delay-2 { animation-delay: 0.4s; }
-      .hero-delay-3 { animation-delay: 0.6s; }
-      .hero-delay-4 { animation-delay: 0.8s; }
+      .reveal { opacity: 0; transform: translateY(40px); transition: 1.5s cubic-bezier(0.2, 1, 0.2, 1); will-change: transform, opacity; }
+      .reveal.active { opacity: 1; transform: translateY(0); }
 
       @media (max-width: 1100px) {
         .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
@@ -344,30 +271,22 @@
 
     <header class="hero">
       <div class="hero-content">
-        <span class="subtitle mono hero-load hero-delay-1">Capital, Engineered</span>
-        <h1 class="glow-text hero-load hero-delay-2">Operate Above<br>The Noise</h1>
-        <p class="mono hero-load hero-delay-3" style="font-size: 1.1rem; color: var(--text-main); max-width: 800px; margin: 2rem auto 0rem; opacity:0.9; line-height:1.8;">
-          Our time is finite • Our capital should operate continuously
+        <span class="subtitle mono">Enterprise Grade Algo <strong>Trade</strong> ‖ <strong>Investment</strong> Platform</span>
+        <h1 class="glow-text">Super-Algo<br>Engine</h1>
+        <p class="mono" style="font-size: 1.1rem; color: var(--text-main); max-width: 800px; margin: 2rem auto; opacity:0.9; line-height:1.8;">
+          The definitive trading infrastructure for family offices and small businesses.
         </p>
-        <p class="hero-load hero-delay-3" style="font-size: 0.8rem; color: var(--text-main); max-width: 800px; margin: 0.5rem auto; opacity:0.7; line-height:1.8; text-transform: uppercase; letter-spacing: 0.1em;">
-          Quiet | Powerful | Relentless
-        </p>
-        <div class="hero-load hero-delay-4" style="margin-top: 5rem;">
-          <a href="#early-access" class="btn mono">Apply Selectively</a>
+        <div style="margin-top: 5rem;">
+          <a href="#early-access" class="btn mono">Express Interest</a>
         </div>
       </div>
     </header>
 
-    <!-- SECTION: EFFORTLESS GROWTH -->
+    <!-- SECTION: VISTA COMMAND CENTER -->
     <section class="container">
-      <div class="reveal reveal-stagger" style="text-align:center;">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">01. Effortless Growth</span>
-        <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 900; margin: 1.5rem 0; text-transform: uppercase; line-height:1.1;">Wealth is Not Managed<br>but Designed</h2>
-        <p style="max-width: 1200px; margin: 0 auto 0.5rem; color:var(--text-main); font-size:1.4rem; line-height:1.6; font-weight:300; opacity:0.9;">
-          True wealth not reactive • Family capital » Engineered • It operates within structure       
-        </p>
-        <p class="mono" style="font-size: 0.75rem; color: var(--accent-gold); opacity: 0.8; letter-spacing: 0.15em;">
-          Income builds lifestyle • Structure builds freedom ⫻ Well Aligned • Validated • Precise  
+      <div class="reveal" style="text-align:center;">
+        <p style="max-width: 1100px; margin: 0 auto; color:var(--text-main); font-size:1.6rem; line-height:1.6; font-weight:300;">
+          TRADI2o isn't an app ● it is a command center. Our <strong>Vista</strong> client provides a unified pane of glass for multi-user multi-broker orchestration.
         </p>
       </div>
 
@@ -375,112 +294,77 @@
         <div class="vista-bounce-wrapper">
           <div class="vista-frame">
             <img src="images/tradi2o-lobby.png" class="img-dark-ui" alt="Vista Light Interface">
-            <img src="images/tradi2o-lobby-dark.png" class="img-light-ui" alt="Vista Dark Interface">    
+            <img src="images/tradi2o-lobby-dark.png" class="img-light-ui" alt="Vista Dark Interface">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: PRECISION WITHOUT FRICTION -->
+    <!-- SECTION: THE LOGIC -->
     <section class="container" style="border-top: 1px solid var(--border-glass);">
-      <div class="reveal reveal-stagger">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">02. Precision Without Friction</span>
-        <h2 style="font-size:clamp(2.5rem, 6vw, 4.5rem); margin: 1rem 0; font-weight:900;">Power Should Feel Effortless</h2>
+      <div class="reveal">
+        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">02. The Logic</span>
+        <h2 style="font-size:clamp(2.5rem, 6vw, 4.5rem); margin: 1rem 0; font-weight:900;">Deterministic Execution</h2>
       </div>
 
-      <div class="pipeline-grid reveal reveal-stagger">
+      <div class="pipeline-grid reveal">
         <div class="pipeline-col">
-          <span class="mono stage-tag">System</span>
-          <h3>Alignment</h3>
-          <p>Declare intent once. Let execution repeat intelligently.</p>
+          <span class="mono stage-tag">S1-S2</span>
+          <h3>Awareness</h3>
+          <p>Sector rotation and symbol discovery using high-throughput analytics.</p>
         </div>
         <div class="pipeline-col">
-          <span class="mono stage-tag">Scale</span>
-          <h3>Orchestration</h3>
-          <p>One infrastructure. Multiple accounts. Exportable pipelines.</p>
+          <span class="mono stage-tag">S3-S5</span>
+          <h3>Intelligence</h3>
+          <p>Dynamic risk badges and composite scoring to verify setup probability.</p>
         </div>
         <div class="pipeline-col">
-          <span class="mono stage-tag">Insight</span>
-          <h3>Validation</h3>
-          <p>Continuous exposure validation. Cost-aware execution.</p>
+          <span class="mono stage-tag">S7-S9</span>
+          <h3>Execution</h3>
+          <p>Automated TWAP/VWAP slicing with real-time position monitoring.</p>
         </div>
         <div class="pipeline-col">
-          <span class="mono stage-tag">Evolution</span>
-          <h3>Refinement</h3>
-          <p>Capital that learns. Refined through feedback loops.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: STRUCTURED ENGAGEMENT (NEW ANCHOR) -->
-    <section class="container" style="background: radial-gradient(circle at top right, oklch(75% 0.12 85 / 0.03), transparent);">
-      <div class="reveal" style="text-align:center;">
-        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">The Methodology</span>    
-        <h2 style="font-size:clamp(2.5rem, 5vw, 4.5rem); margin: 2rem 0; font-weight:900; text-transform: uppercase;">Structured Engagement.</h2>
-        <p style="max-width:900px; margin: 0 auto 4rem; color:var(--text-muted); font-size:1.4rem; line-height:1.6;">
-          Every time you enter the market, you follow the same disciplined sequence. Repetition builds clarity. Clarity builds advantage. Advantage compounds.
-        </p>
-
-        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;" class="mono">
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">01</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Declare Intent</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">02</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Validate Fit</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">03</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Execute Guardrails</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">04</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Review Outcomes</div>
-            </div>
-            <div class="methodology-step" style="text-align:center;">
-                <div class="step-num" style="color:var(--accent-gold); font-size:2rem; margin-bottom: 0.5rem;">05</div>   
-                <div style="font-size:0.7rem; opacity:0.8;">Refine Posture</div>
-            </div>
+          <span class="mono stage-tag">S11-S12</span>
+          <h3>Journaling</h3>
+          <p>Closed-loop learning with automated audit trails and strategy proposals.</p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: THE LUXURY OF STRUCTURE -->
+    <!-- SECTION: THE MISSION -->
     <section class="container" style="">
       <div class="mission-grid">
         <div class="graph-container reveal">
           <div style="position: absolute; bottom: 40%; left: 0; width: 100%; border-top: 1.5px dashed var(--accent-gold); opacity: 0.5; z-index:1;">
-            <span class="mono" style="position: absolute; right: 0; top: -18px; font-size: 0.6rem; color:var(--accent-gold); font-weight:800;">Legacy</span>
+            <span class="mono" style="position: absolute; right: 0; top: -18px; font-size: 0.6rem; color:var(--accent-gold); font-weight:800;">Inflation Hurdle (7%)</span>
           </div>
           <div class="bar" style="height:35%; background: var(--border-glass);"></div>
-          <div class="bar" style="height:65%; background: var(--accent-secondary); opacity:0.8;"></div>  
+          <div class="bar" style="height:65%; background: var(--accent-secondary); opacity:0.8;"></div>
           <div class="bar" style="height:95%; background: var(--accent-primary); box-shadow: 0 0 40px var(--accent-primary);"></div>
         </div>
-        <div class="reveal reveal-stagger">
-          <h2 style="font-size:clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; font-weight:900;">Structure Is The<br>Ultimate Advantage</h2>
-          <p style="color:var(--text-muted); font-size:1.2rem; margin-bottom: 3rem; max-width:650px;">   
-            Structure that holds — even when life is busy. Designed for decades, not days. The result isn’t excitement. It’s control.
+        <div class="reveal">
+          <h2 style="font-size:clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; font-weight:900;">Bridge the<br>Discipline Gap</h2>
+          <p style="color:var(--text-muted); font-size:1.2rem; margin-bottom: 3rem; max-width:650px;">
+            Wealth isn't lost to the market; it's lost to emotion. We automate the rebalancing and risk-checks so you can focus on the long-term legacy.
           </p>
           <div style="display:flex; flex-direction:column; gap:1.5rem; color:var(--accent-gold); font-weight:800; font-size:1.2rem;" class="mono">
-            <div>Align with time. Outpace complacency.</div>
-            <div>Value systems over signals.</div>
-            <div>Private capital operating layer.</div>
-            <div>Infrastructure is leverage.</div>
+            <div>Institutional Algos</div>
+            <div>ETF Guardrails</div>
+            <div>Sovereign Data</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: OWN THE INFRASTRUCTURE -->
+    <!-- SECTION: LEA ACCESS -->
     <section id="early-access" class="container" style="text-align:center;">
-      <div class="reveal reveal-stagger" style="border: 1px solid var(--accent-gold); padding: 8rem 2rem; background: radial-gradient(circle at center, oklch(75% 0.12 85 / 0.05), transparent);">
-        <span class="mono" style="color:var(--accent-gold); font-size:1rem;">The Future Is Private Before It Is Public</span>
-        <h2 style="margin: 2rem 0; font-size: clamp(3rem, 7vw, 5rem); font-weight:900;">Own The Infrastructure</h2>
+      <div class="reveal" style="border: 1px solid var(--accent-gold); padding: 8rem 2rem; background: radial-gradient(circle at center, oklch(75% 0.12 85 / 0.05), transparent);">
+        <span class="mono" style="color:var(--accent-gold); font-size:1rem;">The Program</span>
+        <h2 style="margin: 2rem 0; font-size: clamp(3rem, 7vw, 5rem); font-weight:900;">Limited Exclusive Access</h2>
         <p style="max-width:750px; margin: 0 auto 5rem; color:var(--text-muted); font-size:1.2rem; line-height:1.8;">
-          Tradi2o is opening private nodes to a limited 2026 cohort — individuals and firms ready to operate capital at a higher tier. Ownership of the operating layer.
+          We are currently onboarding a select group of family offices to the LEA program. Express your interest to secure a private node in the 2026 cohort.
         </p>
-        <a href="mailto:testing@tradi2o.com?subject=LEA%20Exclusive%20Interest" class="btn mono">Apply Selectively</a>
+        <a href="mailto:testing@tradi2o.com?subject=LEA%20Exclusive%20Interest" class="btn mono">Express Interest</a>
       </div>
     </section>
 
@@ -491,7 +375,7 @@
           <img id="footer-logo-dark" src="images/Tradi2oLogoW.svg" alt="TRADI2O" style="height: 3rem; position: absolute; top: 0; left: 50%; transform: translateX(-50%); transition: opacity 0.5s;" />
           <img id="footer-logo-light" src="images/Tradi2oLogoB.svg" alt="TRADI2O" style="height: 3rem; opacity: 0; position: absolute; top: 0; left: 50%; transform: translateX(-50%); transition: opacity 0.5s;" />
         </div>
-        <p class="mono" style="font-size:0.9rem; letter-spacing:0.25em; opacity:0.6;">Quiet Confidence.</p>
+        <p class="mono" style="font-size:0.9rem; letter-spacing:0.25em; opacity:0.6;">Super-Algo Engine for the Family Office</p>
 
         <div style="margin-top: 5rem; padding-top: 4rem; border-top: 1px solid var(--border-glass); text-align: left; font-size: 5.5pt; color: var(--text-muted); opacity: 0.5; text-transform: uppercase; line-height: 1.1; letter-spacing: 0.03em;">
           <p style="margin-bottom: 0.5rem; text-align: center"><strong>DISCLAIMER:</strong> TRADI2O IS A TECHNOLOGY PLATFORM FOR ALGORITHMIC TRADING AND ANALYSIS. IT DOES NOT PROVIDE FINANCIAL ADVICE, INVESTMENT RECOMMENDATIONS, OR GUARANTEE PROFITS. TRADING IN FINANCIAL MARKETS INVOLVES SIGNIFICANT RISK, INCLUDING THE RISK OF LOSS OF CAPITAL.</p>
@@ -518,7 +402,7 @@
       // Logo Fade Logic
       const hero = document.querySelector('header.hero');
       const logoContainer = document.getElementById('logo-container');
-
+      
       const heroObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -530,7 +414,7 @@
           }
         });
       }, { threshold: 0.1 });
-
+      
       heroObserver.observe(hero);
 
       const themeToggle = document.getElementById("theme-toggle");
