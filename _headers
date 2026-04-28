@@ -1,16 +1,50 @@
 # Cloudflare Pages custom headers
-# update.json must be CORS-enabled for Tauri updater to fetch it
+# ─────────────────────────────────────────────────────────────────────────────
+# SECURITY HEADERS — applied to every route first, then overridden per-path
+# ─────────────────────────────────────────────────────────────────────────────
+
+/*
+  # Prevent this page from being embedded in an iframe (clickjacking)
+  X-Frame-Options: DENY
+  # Disable MIME-type sniffing — serve files as declared
+  X-Content-Type-Options: nosniff
+  # Only send origin (no path/query) as referrer to third-party domains
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Lock down browser features we never use
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  # Content Security Policy:
+  #   default-src 'self'           — block all unlisted origins by default
+  #   style-src + font-src         — allow Google Fonts (CSS @import + woff2)
+  #   img-src data:                — allow SVG data URIs used by inline assets
+  #   script-src 'unsafe-inline'   — required for the single inline <script> block
+  #   connect-src 'none'           — no XHR / fetch / WebSocket
+  #   object-src 'none'            — no Flash / plugins
+  #   frame-ancestors 'none'       — redundant with X-Frame-Options; belt-and-braces
+  #   base-uri 'self'              — prevent base-tag injection
+  #   form-action 'none'           — no <form> submissions (mailto links are <a>)
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAURI AUTO-UPDATER — update manifests must be CORS-accessible
+# ─────────────────────────────────────────────────────────────────────────────
 
 /updates/*
   Access-Control-Allow-Origin: *
   Content-Type: application/json
-  Cache-Control: public, max-age=300
+  Cache-Control: no-cache, must-revalidate
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CACHE CONTROL — static assets get long TTLs; HTML stays fresh
+# ─────────────────────────────────────────────────────────────────────────────
 
 /*.html
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=0, must-revalidate
 
 /*.svg
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=604800, immutable
 
 /*.jpg
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=604800, immutable
+
+/*.png
+  Cache-Control: public, max-age=604800, immutable

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <title>Tradi2o - Super-Algo Engine for the Family Office</title>
+
+    <!-- Preload critical hero background images -->
+    <link rel="preload" as="image" href="images/darkbg.jpg" type="image/jpeg" />
+    <link rel="preload" as="image" href="images/lightbg.jpg" type="image/jpeg" />
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+      :root {
+        --bg-dark: oklch(2% 0 0);
+        --bg-glass: oklch(10% 0.01 240 / 0.7);
+        --accent-primary: oklch(88% 0.15 155);
+        --accent-secondary: oklch(85% 0.12 185);
+        --accent-gold: oklch(75% 0.12 85);
+        --text-main: oklch(98% 0.01 240);
+        --text-muted: oklch(75% 0.02 240);
+        --border-glass: oklch(100% 0 0 / 0.1);
+        --glow-color: oklch(75% 0.12 85 / 0.4);
+        --hero-bg: url("images/darkbg.jpg");
+      }
+
+      [data-theme="light"] {
+        --bg-dark: oklch(98% 0 0);
+        --bg-glass: oklch(100% 0 0 / 0.8);
+        --accent-primary: oklch(55% 0.2 155);
+        --accent-secondary: oklch(50% 0.18 185);
+        --accent-gold: oklch(60% 0.15 85);
+        --text-main: oklch(15% 0.02 240);
+        --text-muted: oklch(45% 0.03 240);
+        --border-glass: oklch(0% 0 0 / 0.1);
+        --glow-color: oklch(60% 0.15 85 / 0.5);
+        --hero-bg: url("images/lightbg.jpg");
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body, header, section, footer, .glass-card, .btn, .vista-frame, .pipeline-col {
+        transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                    color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      @keyframes gold-shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+
+      .glow-text {
+        display: inline-block;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(212, 175, 55, 0.1) 20%,
+          var(--accent-gold) 50%,
+          rgba(212, 175, 55, 0.1) 80%,
+          transparent 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 2px rgba(212, 175, 55, 1);
+        animation: gold-shimmer 12s infinite linear;
+        will-change: background-position;
+      }
+
+      header.hero {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 4rem 2rem;
+        position: relative;
+        background: var(--hero-bg) center/cover no-repeat;
+        background-attachment: scroll;
+        transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @media (min-width: 1200px) {
+        header.hero { background-attachment: fixed; }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 1400px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.5rem, 12vw, 9.5rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 1.5rem 0;
+        line-height: 0.85;
+        letter-spacing: -0.06em;
+        transform: translateZ(0);
+      }
+
+      .hero .subtitle {
+        color: var(--accent-gold);
+        font-weight: 800;
+        font-size: clamp(0.9rem, 2vw, 1.25rem);
+        letter-spacing: 0.2em;
+      }
+
+      .vista-container {
+        margin: 10vh 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        min-height: 60vh;
+        align-items: center;
+      }
+
+      @keyframes float-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+
+      .vista-bounce-wrapper {
+        animation: float-bounce 10s infinite ease-in-out;
+        transition: transform 1.5s cubic-bezier(0.2, 1, 0.2, 1);
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        justify-content: center;
+        will-change: transform;
+      }
+
+      .vista-frame {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 20px var(--glow-color);
+        transform: scale(0.85);
+        transition: transform 1.5s cubic-bezier(0.2, 1, 0.2, 1), box-shadow 1.5s ease;
+        cursor: pointer;
+        overflow: hidden;
+        border: 1px solid var(--border-glass);
+        will-change: transform;
+        position: relative;
+        aspect-ratio: 1100 / 688;
+        z-index: 5;
+      }
+
+      .vista-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scale(1.01);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .img-dark-ui { opacity: 0; z-index: 2; }
+      .img-light-ui { opacity: 1; z-index: 1; }
+      [data-theme="light"] .img-dark-ui { opacity: 1; }
+      [data-theme="light"] .img-light-ui { opacity: 0; }
+      [data-theme="dark"] .img-dark-ui { opacity: 0; }
+      [data-theme="dark"] .img-light-ui { opacity: 1; }
+
+      .vista-container:hover .vista-bounce-wrapper,
+      .vista-container:focus-within .vista-bounce-wrapper {
+        animation-play-state: paused;
+        transform: translateY(0);
+      }
+
+      .vista-container:hover .vista-frame,
+      .vista-container:focus-within .vista-frame {
+        transform: scale(1);
+        box-shadow: 0 60px 120px rgba(0,0,0,0.6), 0 0 40px var(--glow-color);
+        z-index: 50;
+      }
+
+      .container { max-width: 1400px; margin: 0 auto; padding: 10rem 3rem; }
+      
+      .pipeline-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+        margin-top: 6rem;
+      }
+
+      .pipeline-col { display: flex; flex-direction: column; gap: 0.75rem; }
+      .pipeline-col .stage-tag { font-size: 0.65rem; opacity: 0.5; font-weight: 800; }
+      .pipeline-col h3 { font-size: 1.2rem; color: var(--accent-gold); text-transform: uppercase; }
+      .pipeline-col p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+      .mission-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 6rem; align-items: center; }
+      .graph-container { height: 240px; display: flex; align-items: flex-end; gap: 15%; position: relative; padding-bottom: 15px; }
+      @keyframes bar-reveal { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+      .bar { width: 18%; transform-origin: bottom; animation: bar-reveal 2s cubic-bezier(0.2, 1, 0.2, 1) forwards; }
+
+      .btn {
+        padding: 1.25rem 4rem;
+        font-weight: 900;
+        text-decoration: none;
+        display: inline-block;
+        border: 1px solid var(--accent-gold);
+        color: var(--accent-gold);
+        transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+        background: transparent;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .btn:hover {
+        background: var(--accent-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 50px var(--accent-gold);
+        transform: translateY(-4px);
+      }
+
+      .reveal { opacity: 0; transform: translateY(40px); transition: 1.5s cubic-bezier(0.2, 1, 0.2, 1); will-change: transform, opacity; }
+      .reveal.active { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 1100px) {
+        .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
+        .mission-grid { grid-template-columns: 1fr; gap: 4rem; }
+        .hero h1 { font-size: 5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FIXED LOGO -->
+    <div style="position:fixed; top:3rem; left:3rem; z-index:100; transition: opacity 0.6s ease, visibility 0.6s ease;" id="logo-container">
+      <img src="images/Tradi2oLogoW.svg" alt="Tradi2o" style="height:2.5rem;" id="logo-main">
+    </div>
+
+    <!-- THEME TOGGLE -->
+    <button id="theme-toggle" style="position:fixed; top:3rem; right:3rem; z-index:100; background:none; border:none; cursor:pointer; color:var(--text-main); opacity:0.5;">
+      <svg id="theme-icon" viewBox="0 0 24 24" width="28" height="24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
+
+    <header class="hero">
+      <div class="hero-content">
+        <span class="subtitle mono">Enterprise Grade Algo <strong>Trade</strong> ‖ <strong>Investment</strong> Platform</span>
+        <h1 class="glow-text">Super-Algo<br>Engine</h1>
+        <p class="mono" style="font-size: 1.1rem; color: var(--text-main); max-width: 800px; margin: 2rem auto; opacity:0.9; line-height:1.8;">
+          The definitive trading infrastructure for family offices and small businesses.
+        </p>
+        <div style="margin-top: 5rem;">
+          <a href="#early-access" class="btn mono">Express Interest</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION: VISTA COMMAND CENTER -->
+    <section class="container">
+      <div class="reveal" style="text-align:center;">
+        <p style="max-width: 1100px; margin: 0 auto; color:var(--text-main); font-size:1.6rem; line-height:1.6; font-weight:300;">
+          TRADI2o isn't an app ● it is a command center. Our <strong>Vista</strong> client provides a unified pane of glass for multi-user multi-broker orchestration.
+        </p>
+      </div>
+
+      <div class="vista-container reveal">
+        <div class="vista-bounce-wrapper">
+          <div class="vista-frame">
+            <img src="images/tradi2o-lobby.png" class="img-dark-ui" alt="Vista Light Interface">
+            <img src="images/tradi2o-lobby-dark.png" class="img-light-ui" alt="Vista Dark Interface">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: THE LOGIC -->
+    <section class="container" style="border-top: 1px solid var(--border-glass);">
+      <div class="reveal">
+        <span class="mono" style="color:var(--accent-gold); font-size:0.9rem;">02. The Logic</span>
+        <h2 style="font-size:clamp(2.5rem, 6vw, 4.5rem); margin: 1rem 0; font-weight:900;">Deterministic Execution</h2>
+      </div>
+
+      <div class="pipeline-grid reveal">
+        <div class="pipeline-col">
+          <span class="mono stage-tag">S1-S2</span>
+          <h3>Awareness</h3>
+          <p>Sector rotation and symbol discovery using high-throughput analytics.</p>
+        </div>
+        <div class="pipeline-col">
+          <span class="mono stage-tag">S3-S5</span>
+          <h3>Intelligence</h3>
+          <p>Dynamic risk badges and composite scoring to verify setup probability.</p>
+        </div>
+        <div class="pipeline-col">
+          <span class="mono stage-tag">S7-S9</span>
+          <h3>Execution</h3>
+          <p>Automated TWAP/VWAP slicing with real-time position monitoring.</p>
+        </div>
+        <div class="pipeline-col">
+          <span class="mono stage-tag">S11-S12</span>
+          <h3>Journaling</h3>
+          <p>Closed-loop learning with automated audit trails and strategy proposals.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: THE MISSION -->
+    <section class="container" style="">
+      <div class="mission-grid">
+        <div class="graph-container reveal">
+          <div style="position: absolute; bottom: 40%; left: 0; width: 100%; border-top: 1.5px dashed var(--accent-gold); opacity: 0.5; z-index:1;">
+            <span class="mono" style="position: absolute; right: 0; top: -18px; font-size: 0.6rem; color:var(--accent-gold); font-weight:800;">Inflation Hurdle (7%)</span>
+          </div>
+          <div class="bar" style="height:35%; background: var(--border-glass);"></div>
+          <div class="bar" style="height:65%; background: var(--accent-secondary); opacity:0.8;"></div>
+          <div class="bar" style="height:95%; background: var(--accent-primary); box-shadow: 0 0 40px var(--accent-primary);"></div>
+        </div>
+        <div class="reveal">
+          <h2 style="font-size:clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; font-weight:900;">Bridge the<br>Discipline Gap</h2>
+          <p style="color:var(--text-muted); font-size:1.2rem; margin-bottom: 3rem; max-width:650px;">
+            Wealth isn't lost to the market; it's lost to emotion. We automate the rebalancing and risk-checks so you can focus on the long-term legacy.
+          </p>
+          <div style="display:flex; flex-direction:column; gap:1.5rem; color:var(--accent-gold); font-weight:800; font-size:1.2rem;" class="mono">
+            <div>Institutional Algos</div>
+            <div>ETF Guardrails</div>
+            <div>Sovereign Data</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: LEA ACCESS -->
+    <section id="early-access" class="container" style="text-align:center;">
+      <div class="reveal" style="border: 1px solid var(--accent-gold); padding: 8rem 2rem; background: radial-gradient(circle at center, oklch(75% 0.12 85 / 0.05), transparent);">
+        <span class="mono" style="color:var(--accent-gold); font-size:1rem;">The Program</span>
+        <h2 style="margin: 2rem 0; font-size: clamp(3rem, 7vw, 5rem); font-weight:900;">Limited Exclusive Access</h2>
+        <p style="max-width:750px; margin: 0 auto 5rem; color:var(--text-muted); font-size:1.2rem; line-height:1.8;">
+          We are currently onboarding a select group of family offices to the LEA program. Express your interest to secure a private node in the 2026 cohort.
+        </p>
+        <a href="mailto:testing@tradi2o.com?subject=LEA%20Exclusive%20Interest" class="btn mono">Express Interest</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container" style="padding-bottom:6rem;">
+        <div style="height: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; min-width: 180px;">
+          <img id="footer-logo-dark" src="images/Tradi2oLogoW.svg" alt="TRADI2O" style="height: 3rem; position: absolute; top: 0; left: 50%; transform: translateX(-50%); transition: opacity 0.5s;" />
+          <img id="footer-logo-light" src="images/Tradi2oLogoB.svg" alt="TRADI2O" style="height: 3rem; opacity: 0; position: absolute; top: 0; left: 50%; transform: translateX(-50%); transition: opacity 0.5s;" />
+        </div>
+        <p class="mono" style="font-size:0.9rem; letter-spacing:0.25em; opacity:0.6;">Super-Algo Engine for the Family Office</p>
+
+        <div style="margin-top: 5rem; padding-top: 4rem; border-top: 1px solid var(--border-glass); text-align: left; font-size: 5.5pt; color: var(--text-muted); opacity: 0.5; text-transform: uppercase; line-height: 1.1; letter-spacing: 0.03em;">
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>DISCLAIMER:</strong> TRADI2O IS A TECHNOLOGY PLATFORM FOR ALGORITHMIC TRADING AND ANALYSIS. IT DOES NOT PROVIDE FINANCIAL ADVICE, INVESTMENT RECOMMENDATIONS, OR GUARANTEE PROFITS. TRADING IN FINANCIAL MARKETS INVOLVES SIGNIFICANT RISK, INCLUDING THE RISK OF LOSS OF CAPITAL.</p>
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>REGULATORY STATUS:</strong> TRADI2O IS NOT A SEBI-REGISTERED INVESTMENT ADVISOR (RIA) OR PORTFOLIO MANAGER (PMS). IT DOES NOT PROVIDE PERSONALIZED INVESTMENT ADVICE OR MANAGED TRADING SERVICES.</p>
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>OPERATIONAL RISK:</strong> MARKET DATA, BROKER APIS, NETWORK CONNECTIVITY, AND SERVER INFRASTRUCTURE MAY EXPERIENCE DISRUPTIONS OR LATENCY. TRADI2O IS NOT RESPONSIBLE FOR FAILED ORDERS, PARTIAL FILLS, DATA DELAYS, OR LOSSES RESULTING FROM TECHNICAL ISSUES.</p>
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>DATA ACCURACY:</strong> ANALYTICS AND MARKET DATA ARE SOURCED FROM THIRD PARTIES AND MAY NOT ALWAYS BE ACCURATE, COMPLETE, OR TIMELY. USERS SHOULD INDEPENDENTLY VERIFY ALL INFORMATION.</p>
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>USER RESPONSIBILITY:</strong> USERS ARE SOLELY RESPONSIBLE FOR ALL TRADES EXECUTED THROUGH THEIR BROKER ACCOUNTS. TRADI2O DOES NOT EXECUTE TRADES ON BEHALF OF USERS AND DOES NOT MAKE TRADING DECISIONS.</p>
+          <p style="margin-bottom: 0.5rem; text-align: center"><strong>COMPLIANCE:</strong> ALL BROKER INTEGRATIONS ADHERE TO SEBI GUIDELINES FOR ALGORITHMIC TRADING. USERS ARE RESPONSIBLE FOR OBTAINING NECESSARY APPROVALS AND UNDERSTANDING THE RISKS ASSOCIATED WITH AUTOMATED EXECUTION.</p>
+          <p style="margin-bottom: 0rem; text-align: center">&copy; 2026 TRADI2O. ALL RIGHTS RESERVED. DESIGNED FOR INDIAN EQUITY, ETF &amp; F&amp;O MARKETS. CONTINUOUSLY EVOLVED &amp; IMPROVED.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+      // Logo Fade Logic
+      const hero = document.querySelector('header.hero');
+      const logoContainer = document.getElementById('logo-container');
+      
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            logoContainer.style.opacity = "1";
+            logoContainer.style.visibility = "visible";
+          } else {
+            logoContainer.style.opacity = "0";
+            logoContainer.style.visibility = "hidden";
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      heroObserver.observe(hero);
+
+      const themeToggle = document.getElementById("theme-toggle");
+      const html = document.documentElement;
+      const logo = document.getElementById("logo-main");
+      const fLogoDark = document.getElementById("footer-logo-dark");
+      const fLogoLight = document.getElementById("footer-logo-light");
+
+      themeToggle.addEventListener("click", () => {
+        const next = html.getAttribute("data-theme") === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", next);
+        const isLight = next === "light";
+        logo.src = isLight ? "images/Tradi2oLogoB.svg" : "images/Tradi2oLogoW.svg";
+        fLogoDark.style.opacity = isLight ? "0" : "1";
+        fLogoLight.style.opacity = isLight ? "1" : "0";
+        localStorage.setItem("theme", next);
+      });
+
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      html.setAttribute("data-theme", savedTheme);
+      if(savedTheme === "light") {
+        logo.src = "images/Tradi2oLogoB.svg";
+        fLogoDark.style.opacity = "0";
+        fLogoLight.style.opacity = "1";
+      }
+    </script>
+  </body>
+</html>

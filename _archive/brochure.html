@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <title>Tradi2o - Autopilot for your BROKER</title>
+
+    <!-- Preload critical hero background image -->
+    <link rel="preload" as="image" href="nebula.jpg" type="image/jpeg" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap");
+
+      :root {
+        --bg-dark: oklch(0% 0 0);
+        --bg-card: oklch(5% 0 0);
+        --accent-primary: oklch(70% 0.15 165);
+        --accent-primary-button: oklch(55% 0.18 165);
+        --accent-secondary: oklch(75% 0.12 200);
+        --button-text: oklch(98% 0.02 165);
+        --text-main: oklch(90% 0.01 240);
+        --text-muted: oklch(65% 0.02 240);
+        --border-color: oklch(15% 0 0);
+        --success: oklch(65% 0.18 155);
+        --warning: oklch(80% 0.16 90);
+        --danger: oklch(60% 0.22 25);
+        --hero-gradient-start: oklch(0% 0 0 / 0.5);
+        --hero-gradient-end: oklch(5% 0 0 / 0.9);
+        --card-gradient-start: oklch(5% 0 0 / 0.9);
+        --card-gradient-end: oklch(0% 0 0 / 0.95);
+        --badge-bg: oklch(25% 0.08 90 / 0.3);
+        --badge-border: oklch(70% 0.14 90 / 0.5);
+        --badge-text: oklch(85% 0.12 90);
+      }
+
+      /* Light Theme */
+      [data-theme="light"] {
+        --bg-dark: oklch(98% 0 0);
+        --bg-card: oklch(100% 0 0);
+        --accent-primary: oklch(55% 0.18 165);
+        --accent-primary-button: oklch(55% 0.18 165);
+        --accent-secondary: oklch(60% 0.15 200);
+        --button-text: oklch(0.76 0.21 131.95);
+        --text-main: oklch(25% 0.02 240);
+        --text-muted: oklch(50% 0.03 240);
+        --border-color: oklch(88% 0.01 240);
+        --success: oklch(55% 0.18 155);
+        --warning: oklch(65% 0.16 85);
+        --danger: oklch(55% 0.22 25);
+        --hero-gradient-start: oklch(100% 0 0 / 0.7);
+        --hero-gradient-end: oklch(98% 0 0 / 0.95);
+        --card-gradient-start: oklch(100% 0 0 / 0.95);
+        --card-gradient-end: oklch(98% 0 0 / 0.9);
+        --badge-bg: oklch(75% 0.08 90 / 0.25);
+        --badge-border: oklch(60% 0.14 85 / 0.7);
+        --badge-text: oklch(35% 0.12 85);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      html::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Print specific styles to ensure background colors show up */
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .page-break {
+          page-break-before: always;
+        }
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 2vh max(6vw, 3rem);
+      }
+
+      /* HERO SECTION */
+      header.hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(
+            var(--hero-gradient-start),
+            var(--hero-gradient-end)
+          ),
+          url("nebula.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border-color);
+        padding: 2rem;
+        animation: heroFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Desktop - enable parallax */
+      @media (min-width: 60.5rem) {
+        header.hero {
+          background-attachment: fixed;
+        }
+      }
+
+      @keyframes heroFadeIn {
+        from {
+          opacity: 0;
+          transform: scale(1.02);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(
+            oklch(75% 0.12 200 / 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            90deg,
+            oklch(75% 0.12 200 / 0.03) 1px,
+            transparent 1px
+          );
+        background-size: 2.5rem 2.5rem;
+        z-index: 0;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes gridMove {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 40px;
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        background: linear-gradient(
+          135deg,
+          oklch(100% 0 0) 0%,
+          oklch(90% 0.01 240) 50%,
+          var(--text-muted) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .subtitle {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        color: var(--accent-primary);
+        font-family: "JetBrains Mono", monospace;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 500;
+      }
+
+      .tagline {
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      /* SECTIONS */
+      section {
+        padding: clamp(8rem, 14vh, 12rem) 0;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      section:first-of-type {
+        padding-top: clamp(10rem, 17vh, 14rem);
+      }
+
+      section:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 800;
+        margin-bottom: clamp(3rem, 6vh, 5rem);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        letter-spacing: -1.5px;
+        line-height: 1.2;
+      }
+
+      .section-title::before {
+        content: "";
+        display: block;
+        width: 0.25rem;
+        height: clamp(2.5rem, 6vh, 3.75rem);
+        background: linear-gradient(
+          180deg,
+          var(--accent-primary),
+          var(--accent-secondary)
+        );
+        box-shadow: 0 0 1.25rem oklch(75% 0.12 200 / 0.4);
+        border-radius: 0.125rem;
+      }
+
+      /* GRID LAYOUTS */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(3rem, 8vw, 8rem);
+        align-items: start;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+        gap: clamp(2rem, 3vw, 3rem);
+      }
+
+      @media (max-width: 968px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+      }
+
+      /* CARDS */
+      .card {
+        background: linear-gradient(
+          135deg,
+          var(--card-gradient-start) 0%,
+          var(--card-gradient-end) 100%
+        );
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        padding: clamp(2rem, 3vw, 3rem);
+        border-radius: 0.125rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0.25rem 0.75rem oklch(0% 0 0 / 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      [data-theme="light"] .card {
+        box-shadow: 0 4px 12px oklch(0% 0 0 / 0.08),
+          0 2px 4px oklch(0% 0 0 / 0.04);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-primary),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .card:hover {
+        border-color: oklch(75% 0.12 200 / 0.3);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px oklch(75% 0.12 200 / 0.15),
+          0 0 0 1px oklch(75% 0.12 200 / 0.2);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+        color: var(--text-main);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 700;
+      }
+
+      .card-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        background: oklch(75% 0.12 200 / 0.1);
+        color: var(--accent-secondary);
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      .card p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      /* PANEL VISUALIZATION */
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .panel-card {
+        background: linear-gradient(
+          135deg,
+          var(--card-gradient-start) 0%,
+          var(--card-gradient-end) 100%
+        );
+        border: 1px solid var(--border-color);
+        border-radius: 0.125rem;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0.25rem 0.75rem oklch(0% 0 0 / 0.1);
+        position: relative;
+      }
+
+      [data-theme="light"] .panel-card {
+        box-shadow: 0 4px 12px oklch(0% 0 0 / 0.08),
+          0 2px 4px oklch(0% 0 0 / 0.04);
+      }
+
+      .panel-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          oklch(75% 0.12 200 / 0.03) 0%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+      }
+
+      .panel-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 12px 40px oklch(75% 0.12 200 / 0.15),
+          0 0 0 1px oklch(75% 0.12 200 / 0.3);
+        border-color: oklch(75% 0.12 200 / 0.4);
+      }
+
+      .panel-card:hover::before {
+        opacity: 1;
+      }
+
+      .panel-header {
+        background: oklch(5% 0 0);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .panel-body {
+        padding: 1.5rem;
+      }
+
+      .panel-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text-main);
+      }
+
+      .panel-id {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent-primary);
+        font-size: 0.9rem;
+        opacity: 0.8;
+        font-weight: 700;
+      }
+
+      .panel-desc {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* GRAPHICS */
+      .abstract-chart {
+        width: 100%;
+        height: 6.25rem;
+        background: linear-gradient(
+          180deg,
+          oklch(75% 0.12 200 / 0.1) 0%,
+          transparent 100%
+        );
+        position: relative;
+        margin-top: 1rem;
+        border-top: 1px solid oklch(75% 0.12 200 / 0.3);
+      }
+
+      .abstract-chart::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,80 Q50,70 100,40 T200,60 T300,20' fill='none' stroke='%2300e5ff' stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      /* QUOTES */
+      .quote-box {
+        border-left: 3px solid transparent;
+        border-image: linear-gradient(
+            180deg,
+            var(--accent-primary),
+            var(--accent-secondary)
+          )
+          1;
+        padding-left: clamp(1.5rem, 3vw, 2.5rem);
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        font-style: italic;
+        color: var(--text-main);
+        margin: clamp(2rem, 4vh, 3rem) 0;
+        position: relative;
+        line-height: 1.6;
+        font-weight: 300;
+      }
+
+      .quote-box::before {
+        content: '"';
+        position: absolute;
+        left: -0.5rem;
+        top: -0.5rem;
+        font-size: 4rem;
+        color: var(--accent-primary);
+        opacity: 0.2;
+        font-style: normal;
+        font-family: Georgia, serif;
+      }
+
+      /* FOOTER */
+      footer {
+        background: oklch(0% 0 0);
+        padding: 6rem max(6vw, 3rem);
+        text-align: center;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border-color);
+      }
+
+      .logo-text {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        color: oklch(100% 0 0);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      /* UTILS */
+      .text-highlight {
+        color: var(--accent-primary);
+      }
+
+      .feature-list {
+        list-style: none;
+      }
+
+      .feature-list li {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .feature-list li::before {
+        content: ">";
+        position: absolute;
+        left: 0;
+        color: var(--accent-primary);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .bg-circles {
+        position: relative;
+        width: 100%;
+        padding: clamp(8rem, 14vh, 12rem) 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .bg-circles::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Optimized 4K JPG - works everywhere, great quality at 314KB */
+        background-image: url("concentric-circles-4k.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      .tech-stack-card {
+        background: linear-gradient(
+          135deg,
+          var(--card-gradient-start) 0%,
+          var(--card-gradient-end) 100%
+        );
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        padding: clamp(2rem, 3vw, 3rem);
+        border-radius: 0.125rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 0.25rem 0.75rem oklch(0% 0 0 / 0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      [data-theme="light"] .tech-stack-card {
+        box-shadow: 0 4px 12px oklch(0% 0 0 / 0.08),
+          0 2px 4px oklch(0% 0 0 / 0.04);
+      }
+
+      .tech-stack-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-secondary),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .tech-stack-card:hover {
+        border-color: oklch(75% 0.12 200 / 0.3);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px oklch(75% 0.12 200 / 0.15),
+          0 0 0 1px oklch(75% 0.12 200 / 0.2);
+      }
+
+      .tech-stack-card:hover::before {
+        opacity: 1;
+      }
+
+      .tech-item {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+        position: relative;
+      }
+
+      .tech-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .tech-item::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent-primary);
+        font-size: 1.2rem;
+      }
+
+      /* RESPONSIVE & RISK SECTION */
+      @media (max-width: 60.5rem) {
+        .grid-3 {
+          grid-template-columns: 1fr !important;
+          gap: 2rem !important;
+        }
+        .risk-grid {
+          grid-template-columns: 1fr !important;
+          gap: 3rem !important;
+        }
+        .risk-card {
+          margin-left: 0 !important;
+          max-width: 100% !important;
+        }
+        section {
+          padding: clamp(6rem, 10vh, 8rem) 0;
+        }
+        .risk-section {
+          padding: clamp(6rem, 10vh, 8rem) max(4vw, 2rem) !important;
+        }
+        .card h3 {
+          font-size: 1.25rem;
+        }
+        .panel-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      @media (max-width: 40rem) {
+        .container {
+          padding: 2vh max(4vw, 1.5rem);
+        }
+        h1 {
+          margin-bottom: 1rem;
+        }
+        .section-title {
+          gap: 1rem;
+        }
+        .section-title::before {
+          width: 0.1875rem;
+        }
+      }
+
+      .risk-section {
+        width: 100%;
+        padding: clamp(8rem, 14vh, 12rem) max(6vw, 3rem);
+        background: linear-gradient(
+          135deg,
+          oklch(5% 0 0 / 0) 0%,
+          oklch(10% 0.01 240 / 0.3) 25%,
+          oklch(10% 0.01 240 / 0.5) 50%,
+          oklch(10% 0.01 240 / 0.3) 75%,
+          oklch(5% 0 0 / 0) 100%
+        );
+        position: relative;
+      }
+
+      .risk-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 50% 50%,
+          oklch(75% 0.12 200 / 0.03) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .risk-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 8rem;
+        align-items: center;
+        max-width: 1800px;
+        margin: 0 auto;
+      }
+
+      /* SCROLL REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Stagger children for premium feel */
+      .grid-3 .card,
+      .panel-grid .panel-card {
+        transition-delay: calc(var(--index, 0) * 0.1s);
+      }
+
+      @keyframes logoPulse {
+        0%,
+        100% {
+          opacity: 0.75;
+          transform: scale(1);
+          filter: brightness(1) blur(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.08);
+          filter: brightness(1.4) blur(0);
+        }
+      }
+
+      @keyframes logoGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 10px currentColor;
+        }
+        50% {
+          text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+      }
+
+      .broker-logo {
+        animation: logoPulse 4s infinite cubic-bezier(0.4, 0, 0.2, 1),
+          logoGlow 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-block;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .broker-logo:hover {
+        transform: scale(1.15) !important;
+        opacity: 1 !important;
+        filter: brightness(1.5) !important;
+      }
+
+      .coming-soon-box {
+        border: 1px solid oklch(95% 0.08 165);
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        color: oklch(90% 0.08 200);
+        font-family: "JetBrains Mono", monospace;
+        opacity: 0.7;
+      }
+
+      /* THEME TOGGLE */
+      .theme-toggle {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        z-index: 1000;
+        background: linear-gradient(
+          135deg,
+          var(--card-gradient-start) 0%,
+          var(--card-gradient-end) 100%
+        );
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        width: 3.5rem;
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0.25rem 1rem oklch(0% 0 0 / 0.15);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1) rotate(15deg);
+        box-shadow: 0 0.5rem 1.5rem oklch(75% 0.12 200 / 0.3);
+        border-color: var(--accent-primary);
+      }
+
+      .theme-toggle svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: var(--text-main);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .theme-toggle #moon-icon {
+        fill: var(--text-main);
+      }
+
+      .theme-toggle #sun-icon {
+        stroke: var(--text-main);
+      }
+
+      .theme-toggle:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 40rem) {
+        .theme-toggle {
+          top: 1rem;
+          right: 1rem;
+          width: 3rem;
+          height: 3rem;
+        }
+
+        .theme-toggle svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+
+      /* Light theme specific adjustments */
+      [data-theme="light"] .panel-header {
+        background: oklch(95% 0.01 240);
+      }
+
+      [data-theme="light"] footer {
+        background: oklch(100% 0 0);
+      }
+
+      [data-theme="light"] h1 {
+        background: linear-gradient(
+          135deg,
+          oklch(25% 0.02 240) 0%,
+          oklch(35% 0.02 240) 50%,
+          var(--text-muted) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      [data-theme="light"] .hero::before {
+        background-image: linear-gradient(
+            oklch(75% 0.12 200 / 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            90deg,
+            oklch(75% 0.12 200 / 0.05) 1px,
+            transparent 1px
+          );
+      }
+
+      [data-theme="light"] section {
+        border-bottom-color: oklch(88% 0.01 240);
+      }
+
+      [data-theme="light"] .broker-logo {
+        filter: brightness(0.9);
+      }
+
+      [data-theme="light"] .card-badge {
+        background: oklch(75% 0.12 200 / 0.08);
+        color: var(--accent-secondary);
+      }
+
+      [data-theme="light"] .coming-soon-box {
+        border-color: var(--accent-primary);
+        color: var(--accent-secondary);
+        background: oklch(75% 0.12 200 / 0.05);
+      }
+
+      [data-theme="light"] .risk-section {
+        background: linear-gradient(
+          135deg,
+          oklch(98% 0 0 / 0) 0%,
+          oklch(95% 0.01 240 / 0.3) 25%,
+          oklch(95% 0.01 240 / 0.5) 50%,
+          oklch(95% 0.01 240 / 0.3) 75%,
+          oklch(98% 0 0 / 0) 100%
+        );
+      }
+
+      [data-theme="light"] .risk-section::before {
+        background: radial-gradient(
+          circle at 50% 50%,
+          oklch(75% 0.12 200 / 0.04) 0%,
+          transparent 70%
+        );
+      }
+
+      /* Logo transitions */
+      #logo-dark,
+      #logo-light,
+      #footer-logo-dark,
+      #footer-logo-light {
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- THEME TOGGLE -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg
+        id="sun-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        style="display: none"
+      >
+        <circle cx="12" cy="12" r="5" />
+        <line x1="12" y1="1" x2="12" y2="3" />
+        <line x1="12" y1="21" x2="12" y2="23" />
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+        <line x1="1" y1="12" x2="3" y2="12" />
+        <line x1="21" y1="12" x2="23" y2="12" />
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      </svg>
+      <svg
+        id="moon-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        stroke="none"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-content">
+        <img
+          id="logo-dark"
+          src="Tradi2oLogoW.svg"
+          alt="TRADI2O Logo"
+          style="
+            height: 5rem;
+            margin-bottom: 1.5rem;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          "
+        />
+        <img
+          id="logo-light"
+          src="Tradi2oLogoB.svg"
+          alt="TRADI2O Logo"
+          style="
+            height: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          "
+        />
+        <div
+          style="
+            height: 5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        ></div>
+        <div style="margin-bottom: 1rem">
+          <span
+            style="
+              background: var(--badge-bg);
+              color: var(--badge-text);
+              font-size: 0.85rem;
+              padding: 0.5rem 1.25rem;
+              border: 1px solid var(--badge-border);
+              border-radius: 0.25rem;
+              font-family: 'JetBrains Mono', monospace;
+              font-weight: 600;
+              letter-spacing: 0.05em;
+              box-shadow: 0 2px 8px oklch(0% 0 0 / 0.2);
+              -webkit-backdrop-filter: blur(8px);
+              backdrop-filter: blur(8px);
+              display: inline-block;
+            "
+          >
+            PRE-ALPHA • CLOSED TESTING PROGRAM 2026
+          </span>
+        </div>
+
+        <h1>An Autopilot for your BROKER</h1>
+        <p class="tagline">
+          Trade like a pro. Together, as a family. <br />
+          <span
+            style="
+              font-size: 1rem;
+              opacity: 0.8;
+              display: block;
+              margin-top: 0.5rem;
+            "
+          >
+            <strong>TRADI2o</strong> — Family trading platform for Indian
+            markets. Execute with institutional-grade algorithms while each
+            family member trades independently with personalized risk controls.
+          </span>
+        </p>
+
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+          "
+        >
+          <div
+            style="height: 2rem; display: flex; align-items: center; gap: 2rem"
+          >
+            <span
+              class="broker-logo"
+              style="
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                color: oklch(50% 0.18 300);
+                animation-delay: 0s;
+              "
+              >upstox</span
+            >
+            <span
+              class="broker-logo"
+              style="
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                color: oklch(75% 0.16 165);
+                animation-delay: 1s;
+              "
+              >Groww</span
+            >
+            <span
+              class="broker-logo"
+              style="
+                font-weight: 700;
+                letter-spacing: 1px;
+                color: oklch(55% 0.15 230);
+                animation-delay: 2s;
+              "
+              >ZERODHA</span
+            >
+          </div>
+          <span
+            style="
+              font-size: 0.75rem;
+              color: var(--text-muted);
+              font-family: 'JetBrains Mono', monospace;
+            "
+          >
+            Under LEA License Testing • Closed Group Validation
+          </span>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+          "
+        >
+          <span class="card-badge">SEBI Compliant</span>
+          <span class="card-badge">Family Multi-User</span>
+          <span class="card-badge">Equities • ETFs • F&O</span>
+          <span class="card-badge">No Crypto/FX</span>
+        </div>
+
+        <div style="margin-top: 2.5rem">
+          <a
+            href="#early-access"
+            style="
+              display: inline-block;
+              padding: 1.2rem 3rem;
+              background: var(--accent-primary-button);
+              color: var(--button-text);
+              text-decoration: none;
+              font-weight: 700;
+              font-size: 1.1rem;
+              border-radius: 0.25rem;
+              transition: all 0.3s;
+              box-shadow: 0 0.25rem 1.25rem oklch(75% 0.12 200 / 0.3);
+            "
+            onmouseover="this.style.transform='translateY(-0.1875rem)'; this.style.boxShadow='0 0.5rem 1.875rem oklch(75% 0.12 200 / 0.5)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0.25rem 1.25rem oklch(75% 0.12 200 / 0.3)'"
+          >
+            Express Testing Interest →
+          </a>
+          <p
+            style="
+              margin-top: 1rem;
+              font-size: 0.85rem;
+              color: var(--text-muted);
+              opacity: 0.8;
+            "
+          >
+            Closed testing • Limited capacity • Invitation only
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- MONEY FIRST BENEFITS -->
+    <section class="container">
+      <h2 class="section-title">Money-First Benefits</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Grow PnL, Cut Drawdowns</h3>
+          <p>
+            Daily loss caps (<strong>5% default</strong>), trailing stops, and
+            capital guards protect your investments while letting winners run.
+            Per-trade risk never exceeds <srtong>1% - 2%</srtong>.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Institutional Execution</h3>
+          <p>
+            Execute like FIIs with TWAP, VWAP, and Iceberg algorithms. Minimize
+            market impact on orders above ₹50,000 with
+            <strong>&lt;2%</strong> slippage.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Complete Fee Transparency</h3>
+          <p>
+            Maven accounts for STT, stamp duty, brokerage, GST, exchange
+            charges, and slippage so your net PnL reflects reality—no surprises.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN INTENT -->
+    <section class="container">
+      <div class="grid-2">
+        <div>
+          <h2 class="section-title">Design Intent</h2>
+          <p style="font-size: 1.1rem; margin-bottom: 1.5rem">
+            Tradi2o is an
+            <strong
+              >enterprise-grade retail algorithmic trading platform</strong
+            >
+            designed to trade in the stock market with the discipline and
+            consistency of an expert trader.
+          </p>
+          <p style="font-size: 1.1rem; margin-bottom: 1.5rem">
+            It prioritizes
+            <strong>steady, consistent gains over high-risk big wins</strong>,
+            focusing on gradual improvement and scalable growth over time.
+          </p>
+          <div class="quote-box">
+            "Tradi2o treats trading as engineering, not gambling."
+          </div>
+        </div>
+        <div class="card">
+          <h3>Automated Discipline</h3>
+          <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
+            Whether you're a beginner who needs guardrails or a veteran who
+            wants precision tools, Tradi2o adapts to your skill level while
+            maintaining strict risk controls.
+          </p>
+          <ul class="feature-list">
+            <li>Automates discipline & removes emotional interference.</li>
+            <li>Scales proven strategies.</li>
+            <li>Evolves with every trade.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILY TRADING -->
+    <section
+      class="container"
+      style="
+        background: linear-gradient(
+          135deg,
+          oklch(75% 0.12 200 / 0.05) 0%,
+          oklch(75% 0.12 200 / 0.05) 100%
+        );
+      "
+    >
+      <h2 class="section-title">Family Trading Platform</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Multiple family members trade independently with complete isolation,
+        personalized risk profiles, and role-based permissions. Share knowledge,
+        not risk.
+      </p>
+      <div class="grid-3">
+        <div class="card" style="border-top: 3px solid oklch(80% 0.16 85)">
+          <h3>★ Primary Member</h3>
+          <p style="margin-bottom: 1rem">
+            Full trading privileges and oversight
+          </p>
+          <ul class="feature-list" style="font-size: 0.9rem">
+            <li>All strategies & algorithms unlocked</li>
+            <li>Set family-wide risk limits</li>
+            <li>Approve large positions</li>
+            <li>View all family portfolios</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid oklch(75% 0.12 200)">
+          <h3>◆ Secondary Member</h3>
+          <p style="margin-bottom: 1rem">Independent trading with guardrails</p>
+          <ul class="feature-list" style="font-size: 0.9rem">
+            <li>Trade within position limits</li>
+            <li>Access approved strategies</li>
+            <li>Real-time portfolio monitoring</li>
+            <li>Educational resources</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid oklch(65% 0.18 155)">
+          <h3>△ Learner Mode</h3>
+          <p style="margin-bottom: 1rem">Safe paper trading for beginners</p>
+          <ul class="feature-list" style="font-size: 0.9rem">
+            <li>Paper trading with real data</li>
+            <li>Learn before you earn</li>
+            <li>Graduate to live trading</li>
+            <li>Safety caps on all positions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote-box" style="margin-top: 3rem">
+        "Teach your children to invest. Let your spouse trade independently.
+        Build generational wealth together—with complete isolation and
+        personalized risk controls."
+      </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- WHAT TRADI2O IS / IS NOT -->
+    <section class="container">
+      <h2 class="section-title">Scope & Boundaries</h2>
+      <div class="grid-2">
+        <div>
+          <h3>What Tradi2o IS</h3>
+          <ul class="feature-list" style="margin-top: 1.5rem">
+            <li>
+              <strong>Retail algorithmic trading application</strong> for
+              novices AND experts.
+            </li>
+            <li>
+              <strong>Asset Classes:</strong>
+              <div
+                style="
+                  display: flex;
+                  gap: 0.5rem;
+                  margin-top: 0.5rem;
+                  flex-wrap: wrap;
+                "
+              >
+                <span
+                  class="card-badge"
+                  style="
+                    color: var(--success);
+                    background: oklch(65% 0.18 155 / 0.1);
+                  "
+                  >✓ Equity</span
+                >
+                <span
+                  class="card-badge"
+                  style="
+                    color: var(--success);
+                    background: oklch(65% 0.18 155 / 0.1);
+                  "
+                  >✓ ETF</span
+                >
+                <span
+                  class="card-badge"
+                  style="
+                    color: var(--success);
+                    background: oklch(65% 0.18 155 / 0.1);
+                  "
+                  >✓ F&O</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>What Tradi2o Is NOT</h3>
+          <ul class="feature-list" style="margin-top: 1.5rem">
+            <li>
+              <strong class="text-highlight" style="color: var(--danger)"
+                >Not a charting platform:</strong
+              >
+              Data-driven, not graph-obsessed.
+            </li>
+            <li>
+              <strong class="text-highlight" style="color: var(--danger)"
+                >Not for gamblers:</strong
+              >
+              No support for speculative, emotional trading.
+            </li>
+            <li>
+              <strong class="text-highlight" style="color: var(--danger)"
+                >Not static:</strong
+              >
+              Evolving with every trade.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT WALKTHROUGH -->
+    <section class="bg-circles">
+      <div class="container">
+        <h2 class="section-title">The Workflow (S0–S12)</h2>
+        <p
+          style="
+            margin-bottom: 3rem;
+            max-width: 700px;
+            color: var(--text-muted);
+          "
+        >
+          TRADI2O structures the trading experience into a series of panels,
+          each focused on a specific cognitive task in the trader’s workflow.
+        </p>
+
+        <div
+          class="panel-grid"
+          style="
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+          "
+        >
+          <!-- S0 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">SessionPulse</span>
+              <span class="panel-id">S0</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                High-level view of current market tone. Immediate visibility
+                into which sectors are "alive".
+              </p>
+              <div class="abstract-chart"></div>
+            </div>
+          </div>
+
+          <!-- S1 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">Sector</span>
+              <span class="panel-id">S1</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Ranks and organizes sectors. Highlights shifts in leadership and
+                momentum.
+              </p>
+            </div>
+          </div>
+
+          <!-- S2 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">SymbolDiscovery</span>
+              <span class="panel-id">S2</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Surfaces symbols aligned with style and risk. From macro
+                structure to micro candidates.
+              </p>
+            </div>
+          </div>
+
+          <!-- S3 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">RiskBadge</span>
+              <span class="panel-id">S3</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                At-a-glance risk footprint: volatility, gap risk, liquidity
+                posture.
+              </p>
+            </div>
+          </div>
+
+          <!-- S4 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">Fit</span>
+              <span class="panel-id">S4</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Evaluates alignment with trader's style. Not every good chart is
+                a good fit.
+              </p>
+            </div>
+          </div>
+
+          <!-- S5 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">CompositeScore</span>
+              <span class="panel-id">S5</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Combines structure, risk, and participation into a single
+                interpretable score.
+              </p>
+              <div class="abstract-chart"></div>
+            </div>
+          </div>
+
+          <!-- S6 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">Watchlist</span>
+              <span class="panel-id">S6</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Curated universe enriched with context, not just tickers and
+                prices.
+              </p>
+            </div>
+          </div>
+
+          <!-- S7 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">EntryPlan</span>
+              <span class="panel-id">S7</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Structured canvas for if/then conditions. Defines risk before
+                commitment.
+              </p>
+            </div>
+          </div>
+
+          <!-- S8 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">TradeTicket</span>
+              <span class="panel-id">S8</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Constraint-aware execution. Integrates lot sizes and compliance
+                checks.
+              </p>
+            </div>
+          </div>
+
+          <!-- S9 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">PositionMonitor</span>
+              <span class="panel-id">S9</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Tracks positions with emphasis on risk and narrative aging.
+              </p>
+            </div>
+          </div>
+
+          <!-- S10 -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span class="panel-title">ExitDecision</span>
+              <span class="panel-id">S10</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Structured lens for exits based on structural deterioration or
+                opportunity cost.
+              </p>
+            </div>
+          </div>
+
+          <!-- S11/S12 -->
+          <div class="panel-card" style="grid-column: span 2">
+            <div class="panel-header">
+              <span class="panel-title">Journal & Proposal</span>
+              <span class="panel-id">S11-S12</span>
+            </div>
+            <div class="panel-body">
+              <p class="panel-desc">
+                Continuous learning surface and strategy sandbox. Turns ad-hoc
+                ideas into reusable frameworks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS ENGINE -->
+    <section class="container">
+      <h2 class="section-title">Professional Analytics Engine</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        StratiCortex delivers institutional-grade signal generation with
+        sub-40ms latency. Every indicator explains itself in plain English.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>RSI & MACD <span class="card-badge">Trend</span></h3>
+          <p>
+            Overbought/oversold detection with divergence analysis. Crossover
+            signals with trend confirmation.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Bollinger Bands <span class="card-badge">Volatility</span></h3>
+          <p>
+            Volatility regime classification and squeeze detection. Perfect for
+            F&O entry timing.
+          </p>
+        </div>
+        <div class="card">
+          <h3>SuperTrend ATR <span class="card-badge">Trailing</span></h3>
+          <p>
+            Dynamic trailing stops optimized for Indian F&O markets.
+            Auto-adjusts with volatility.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Mean Reversion <span class="card-badge">Statistical</span></h3>
+          <p>
+            Z-score based signals for range-bound markets. Ideal for index
+            options.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Momentum Scoring <span class="card-badge">Sector</span></h3>
+          <p>
+            Rank sectors and symbols by relative strength. Find leaders before
+            the crowd.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Composite Score <span class="card-badge">Multi-Factor</span></h3>
+          <p>
+            Combines structure, risk, and participation into a single
+            interpretable score.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- RISK MANAGEMENT -->
+    <section class="risk-section">
+      <div class="risk-grid">
+        <div>
+          <h2 class="section-title" style="margin-bottom: 4rem">
+            Risk Management
+          </h2>
+          <p
+            style="
+              font-size: 1.25rem;
+              margin-bottom: 2.5rem;
+              line-height: 1.8;
+              color: var(--text-main);
+            "
+          >
+            Survival first, profits second. These rules are non-negotiable in
+            TRADI2O.
+          </p>
+          <ul class="feature-list" style="font-size: 1.1rem">
+            <li style="margin-bottom: 1.5rem">
+              <strong>Risk ≤ 1–2% per trade</strong>: No single trade should
+              break you.
+            </li>
+            <li style="margin-bottom: 1.5rem">
+              <strong>Always hedge leveraged positions</strong>: Futures/options
+              need protection.
+            </li>
+            <li style="margin-bottom: 1.5rem">
+              <strong>Liquidity check before entry</strong>: Can you exit when
+              needed?
+            </li>
+            <li style="margin-bottom: 1.5rem">
+              <strong>Stop loss = survival</strong>: Not optional. Live to trade
+              another day.
+            </li>
+          </ul>
+        </div>
+        <div
+          class="card risk-card"
+          style="
+            border-left: 4px solid var(--danger);
+            padding: 2.5rem;
+            max-width: 450px;
+            margin-left: auto;
+          "
+        >
+          <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem">Risk Tiers</h3>
+          <div style="margin-top: 1.2rem">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: oklch(65% 0.18 155); font-weight: 600"
+                >Conservative</span
+              >
+              <span style="font-size: 0.9rem; color: var(--text-muted)"
+                >0.5% risk • 3% daily cap • 2x leverage</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: oklch(80% 0.16 90); font-weight: 600"
+                >Balanced</span
+              >
+              <span style="font-size: 0.9rem; color: var(--text-muted)"
+                >1% risk • 5% daily cap • 3x leverage</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+              "
+            >
+              <span style="color: oklch(60% 0.22 25); font-weight: 600"
+                >Aggressive</span
+              >
+              <span style="font-size: 0.9rem; color: var(--text-muted)"
+                >2% risk • 7% daily cap • 4x leverage</span
+              >
+            </div>
+          </div>
+          <p
+            style="
+              margin-top: 1.5rem;
+              font-size: 0.9rem;
+              color: var(--text-muted);
+            "
+          >
+            <strong>ETF Guardrails:</strong> Min ₹100Cr AUM • Min ₹5Cr ADV • Max
+            2% tracking error
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXECUTION ALGORITHMS -->
+    <section class="container">
+      <h2 class="section-title">Institutional Execution Algorithms</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Execute like FIIs and DIIs. Smart order routing minimizes market impact
+        and optimizes fill quality for orders above ₹50,000.
+      </p>
+      <div class="grid-2" style="gap: 3rem">
+        <div>
+          <div class="card" style="margin-bottom: 1.5rem">
+            <h3>TWAP <span class="card-badge">Time-Weighted</span></h3>
+            <p>
+              Split large orders across time windows. Perfect for accumulating
+              positions without price spikes.
+            </p>
+          </div>
+          <div class="card" style="margin-bottom: 1.5rem">
+            <h3>VWAP <span class="card-badge">Volume-Weighted</span></h3>
+            <p>
+              Match volume profiles with 10-30% participation. Benchmark
+              execution within 10bps 95% of the time.
+            </p>
+          </div>
+          <div class="card" style="margin-bottom: 1.5rem">
+            <h3>Iceberg <span class="card-badge">Hidden</span></h3>
+            <p>
+              Only 5% of order visible at any time. Intelligent refresh prevents
+              detection by algos.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Adaptive <span class="card-badge">Smart</span></h3>
+            <p>
+              Auto-switches between strategies based on market conditions. >90%
+              optimal selection rate.
+            </p>
+          </div>
+        </div>
+        <div
+          class="card"
+          style="
+            background: linear-gradient(
+              135deg,
+              oklch(75% 0.12 200 / 0.05) 0%,
+              oklch(75% 0.12 200 / 0.05) 100%
+            );
+          "
+        >
+          <h3 style="margin-bottom: 2rem">Execution Quality Targets</h3>
+          <p
+            style="
+              font-size: 0.85rem;
+              color: var(--text-muted);
+              margin-bottom: 1.5rem;
+              font-style: italic;
+            "
+          >
+            Design targets under optimal conditions. Live performance being
+            validated.
+          </p>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem"
+          >
+            <div>
+              <p
+                style="
+                  color: var(--accent-primary);
+                  font-size: 2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                &lt;50ms
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-muted)">
+                Target execution latency per slice
+              </p>
+            </div>
+            <div>
+              <p
+                style="
+                  color: var(--accent-primary);
+                  font-size: 2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                &lt;2%
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-muted)">
+                Target market impact for large orders
+              </p>
+            </div>
+            <div>
+              <p
+                style="
+                  color: var(--accent-primary);
+                  font-size: 2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                95%+
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-muted)">
+                Target fill rate with volume constraints
+              </p>
+            </div>
+            <div>
+              <p
+                style="
+                  color: var(--accent-primary);
+                  font-size: 2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                10bps
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-muted)">
+                Target VWAP benchmark variance
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- BACKTESTING -->
+    <section class="container">
+      <h2 class="section-title">▸ Test Before You Invest</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Validate your strategies on historical NSE data before deploying
+        capital. Same engine runs backtest, paper trading, and live execution.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Historical Data</h3>
+          <p>
+            Multi-year NSE data access through Yahoo Finance and exchange feeds.
+            Historical depth expanding continuously.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Realistic Simulation</h3>
+          <p>
+            High-fidelity market simulation with slippage modeling, latency
+            simulation, and comprehensive fee deduction (STT, stamp duty, GST).
+          </p>
+        </div>
+        <div class="card">
+          <h3>Performance Analytics</h3>
+          <p>
+            Sharpe ratio, max drawdown, alpha/beta, VaR, and stress testing
+            capabilities under development.
+          </p>
+        </div>
+      </div>
+      <div class="quote-box" style="margin-top: 3rem">
+        "Paper trading is mandatory before live trading. Learn, refine, then
+        execute—in that order."
+      </div>
+    </section>
+
+    <!-- PERFORMANCE METRICS -->
+    <section class="container">
+      <h2 class="section-title">▸ Enterprise-Grade Performance</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Built for 1,000+ concurrent families with sub-millisecond latency. Rust
+        + .NET hybrid architecture delivers both speed and reliability.
+      </p>
+      <p
+        style="
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          margin-bottom: 2rem;
+          font-style: italic;
+          text-align: center;
+        "
+      >
+        Architecture benchmarks from development testing. Production metrics
+        being collected.
+      </p>
+      <div class="grid-2" style="gap: 3rem">
+        <div class="card">
+          <h3 style="margin-bottom: 1.5rem">System Throughput Benchmarks</h3>
+          <div style="display: grid; gap: 1rem">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">Tick Processing</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~100K/sec</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">Strategy Evaluation</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~500/sec</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">FFI Operations</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~50K/sec</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+              "
+            >
+              <span style="color: var(--text-muted)">Data Throughput</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~1GB/hour</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 1.5rem">
+            Latency & Reliability Benchmarks
+          </h3>
+          <div style="display: grid; gap: 1rem">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">DataFrame Exchange</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~0.5ms avg</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">Order Roundtrip</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~2ms</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border-color);
+              "
+            >
+              <span style="color: var(--text-muted)">Memory Efficiency</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >~95% reuse</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0.75rem 0;
+              "
+            >
+              <span style="color: var(--text-muted)">Uptime Target</span>
+              <span
+                style="
+                  color: var(--accent-primary);
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >99.9%+</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY & SAFETY -->
+    <section class="container">
+      <div class="grid-2" style="align-items: stretch">
+        <div style="display: flex; flex-direction: column">
+          <h2 class="section-title" style="margin-bottom: 4rem">
+            Engineered<em>4</em>Safety
+          </h2>
+          <p style="margin-bottom: 2rem; color: var(--text-muted)">
+            TRADI2O treats safety and compliance as first-class design goals.
+          </p>
+          <div
+            class="card"
+            style="border-left: 4px solid var(--success); margin-bottom: 1.5rem"
+          >
+            <h3>SEBI Compliance</h3>
+            <p>
+              Broker interactions originate from controlled server environments.
+              Mandatory paper-trading onboarding.
+            </p>
+          </div>
+          <div
+            class="card"
+            style="border-left: 4px solid var(--accent-secondary); flex-grow: 1"
+          >
+            <h3>Orchestration Logic</h3>
+            <p>
+              Order flows guarded by pre-flight checks and constraints before
+              reaching the broker.
+            </p>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <h2 class="section-title" style="margin-bottom: 4rem">Tech Stack</h2>
+          <p style="margin-bottom: 2rem; visibility: hidden">Spacer</p>
+          <!-- Spacer to align cards -->
+          <div class="tech-stack-card">
+            <div class="tech-item">
+              <strong>Client as Pure Presentation</strong>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--text-muted);
+                  margin-top: 0.25rem;
+                "
+              >
+                UI is free of trading logic.
+              </p>
+            </div>
+            <div class="tech-item">
+              <strong>Server as Computation Core</strong>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--text-muted);
+                  margin-top: 0.25rem;
+                "
+              >
+                Heavy logic runs in controlled environments.
+              </p>
+            </div>
+            <div class="tech-item">
+              <strong>Analytics on Structured Data</strong>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--text-muted);
+                  margin-top: 0.25rem;
+                "
+              >
+                Predictable DataFrame operations.
+              </p>
+            </div>
+            <div class="tech-item">
+              <strong>Per-User Isolation</strong>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--text-muted);
+                  margin-top: 0.25rem;
+                "
+              >
+                Strict separation of data and sessions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY TRADI2O -->
+    <section
+      class="container"
+      style="
+        background: linear-gradient(
+          135deg,
+          oklch(65% 0.18 155 / 0.05) 0%,
+          oklch(75% 0.12 200 / 0.05) 100%
+        );
+      "
+    >
+      <h2 class="section-title">▸ Why TRADI2O?</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Built specifically for Indian retail traders and families. Not a generic
+        platform adapted for Indian markets.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🇮🇳 India-First</h3>
+          <p>
+            NSE/BSE focused. All fees (STT, stamp duty, GST, SEBI charges)
+            calculated. F&O margin integration.
+          </p>
+        </div>
+        <div class="card">
+          <h3>◆ Family Multi-User</h3>
+          <p>
+            First platform where entire family trades together with complete
+            isolation and role-based controls.
+          </p>
+        </div>
+        <div class="card">
+          <h3>🛡️ Compliance Built-In</h3>
+          <p>
+            7-year audit trail, static IP enforcement, and mandatory paper
+            trading. SEBI-ready from day one.
+          </p>
+        </div>
+        <div class="card">
+          <h3>▸ Institutional Speed</h3>
+          <p>
+            Sub-millisecond execution with Rust + .NET hybrid. Same algorithms
+            FIIs use, at retail prices.
+          </p>
+        </div>
+        <div class="card">
+          <h3>■ Your Data, Your Control</h3>
+          <p>
+            Per-user isolated databases. Encrypted credentials. No third-party
+            cloud dependencies.
+          </p>
+        </div>
+        <div class="card">
+          <h3>📚 Learn Then Earn</h3>
+          <p>
+            Mandatory paper trading graduation. Educational mode for beginners.
+            Safety guardrails built in.
+          </p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 4rem">
+        <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 600">
+          Ready to trade like a pro?
+        </p>
+        <p style="color: var(--text-muted); margin-top: 0.5rem">
+          Start with paper trading. Graduate to live. Build generational wealth.
+        </p>
+      </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ROADMAP -->
+    <section class="container">
+      <h2 class="section-title">🗺️ Development Roadmap 2026</h2>
+      <p
+        style="
+          margin-bottom: 3rem;
+          max-width: 800px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+        "
+      >
+        Transparent development progress. We build in the open with our closed
+        testing group under LEA license.
+      </p>
+      <div class="grid-3">
+        <div class="card" style="border-top: 3px solid var(--success)">
+          <h3>
+            Q1 2026
+            <span
+              class="card-badge"
+              style="
+                background: oklch(65% 0.18 155 / 0.1);
+                color: var(--success);
+              "
+              >✓ Core Complete</span
+            >
+          </h3>
+          <ul class="feature-list" style="margin-top: 1rem">
+            <li>Upstox integration & testing</li>
+            <li>Basic order execution (Market/Limit)</li>
+            <li>Core risk controls & safeguards</li>
+            <li>SEBI compliance framework</li>
+            <li>Family multi-user foundation</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--warning)">
+          <h3>
+            Q2 2026
+            <span
+              class="card-badge"
+              style="
+                background: oklch(80% 0.16 90 / 0.1);
+                color: oklch(80% 0.16 90);
+              "
+              >→ In Progress</span
+            >
+          </h3>
+          <ul class="feature-list" style="margin-top: 1rem">
+            <li>Execution algorithms (TWAP/VWAP/Iceberg)</li>
+            <li>Analytics engine (StratiCortex)</li>
+            <li>Complete S0-S12 panel workflow</li>
+            <li>Groww & Zerodha broker testing</li>
+            <li>Advanced backtesting engine</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--accent-secondary)">
+          <h3>Q3-Q4 2026 <span class="card-badge">Planned</span></h3>
+          <ul class="feature-list" style="margin-top: 1rem">
+            <li>Public beta program launch</li>
+            <li>Mobile companion app</li>
+            <li>Advanced strategy proposals (S12)</li>
+            <li>Performance reporting & analytics</li>
+            <li>Community features & learning</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 3rem; text-align: center">
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-style: italic;
+          "
+        >
+          Roadmap subject to change based on testing feedback and regulatory
+          requirements.
+        </p>
+      </div>
+    </section>
+
+    <!-- EARLY ACCESS / CONTACT -->
+    <section id="early-access" class="container" style="text-align: center">
+      <h2
+        class="section-title"
+        style="justify-content: center; margin-bottom: 2rem"
+      >
+        Express Interest in Closed Testing
+      </h2>
+      <p
+        style="
+          margin-bottom: 2rem;
+          max-width: 700px;
+          color: var(--text-muted);
+          font-size: 1.1rem;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        TRADI2O is currently in pre-alpha testing with a limited group under LEA
+        license. We're building carefully, prioritizing compliance, safety, and
+        quality over speed.
+      </p>
+      <div
+        style="
+          background: linear-gradient(
+            135deg,
+            oklch(75% 0.12 200 / 0.1) 0%,
+            oklch(75% 0.12 200 / 0.1) 100%
+          );
+          padding: 3rem;
+          border-radius: 0;
+          max-width: 650px;
+          margin: 0 auto;
+          box-shadow: 0 0 0 1px var(--border-color);
+        "
+      >
+        <h3 style="margin-bottom: 1.5rem; color: var(--text-main)">
+          Testing Program Interest
+        </h3>
+        <p
+          style="
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+          "
+        >
+          <strong>Express your interest</strong> to join the closed testing
+          program. We'll connect with you
+          <strong>if we have bandwidth</strong> to onboard new testers. Priority
+          given to experienced traders and families serious about disciplined
+          algo trading.
+        </p>
+        <div
+          style="
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <a
+            href="mailto:testing@tradi2o.com?subject=Testing%20Program%20Interest&body=Please%20share:%0A-%20Your%20trading%20experience%0A-%20Primary%20markets%20(Equity/F%26O/ETF)%0A-%20Why%20you're%20interested%20in%20TRADI2O%0A-%20Family%20trading%20interest%20(Yes/No)"
+            style="
+              display: inline-block;
+              padding: 1rem 2.5rem;
+              background: var(--accent-primary);
+              color: var(--button-text);
+              text-decoration: none;
+              font-weight: 700;
+              border-radius: 0.25rem;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform='translateY(-0.125rem)'; this.style.boxShadow='0 0.25rem 0.75rem oklch(75% 0.12 200 / 0.4)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+          >
+            Express Interest
+          </a>
+          <a
+            href="mailto:hello@tradi2o.com?subject=General%20Inquiry"
+            style="
+              display: inline-block;
+              padding: 1rem 2.5rem;
+              background: transparent;
+              color: var(--text-main);
+              border: 1px solid var(--border-color);
+              text-decoration: none;
+              font-weight: 700;
+              border-radius: 0.25rem;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.borderColor='var(--accent-primary)'; this.style.color='var(--accent-primary)'"
+            onmouseout="this.style.borderColor='var(--border-color)'; this.style.color='var(--text-main)'"
+          >
+            General Inquiry
+          </a>
+        </div>
+        <p
+          style="
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+          "
+        >
+          We review all inquiries but can't guarantee slots. Testing capacity is
+          limited by compliance and support bandwidth.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div
+          style="
+            height: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            min-width: 150px;
+          "
+        >
+          <img
+            id="footer-logo-dark"
+            src="Tradi2oLogoW.svg"
+            alt="TRADI2O"
+            style="
+              height: 2.5rem;
+              position: absolute;
+              top: 0;
+              left: 50%;
+              transform: translateX(-50%);
+            "
+          />
+          <img
+            id="footer-logo-light"
+            src="Tradi2oLogoB.svg"
+            alt="TRADI2O"
+            style="
+              height: 2.5rem;
+              opacity: 0;
+              position: absolute;
+              top: 0;
+              left: 50%;
+              transform: translateX(-50%);
+            "
+          />
+        </div>
+        <p>An Autopilot for your BROKER</p>
+
+        <div
+          style="
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+          "
+        >
+          <a
+            href="https://tradi2o.in/updates/tradi2o-vista/update.json"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              padding: 0.6rem 1.5rem;
+              background: transparent;
+              color: var(--accent-primary);
+              border: 1px solid var(--accent-primary);
+              text-decoration: none;
+              font-weight: 600;
+              font-size: 0.85rem;
+              border-radius: 0.25rem;
+              font-family: 'JetBrains Mono', monospace;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.background='var(--accent-primary)'; this.style.color='var(--button-text)'"
+            onmouseout="this.style.background='transparent'; this.style.color='var(--accent-primary)'"
+          >
+            ↓ Vista v2.3.0 • Build 20260224.02
+          </a>
+          <span
+            style="
+              font-size: 0.75rem;
+              color: var(--text-muted);
+              font-family: 'JetBrains Mono', monospace;
+            "
+          >
+            Windows x64 • Linux x64
+          </span>
+        </div>
+
+        <div
+          style="
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 6pt;
+            color: var(--text-muted);
+            opacity: 0.7;
+            text-transform: uppercase;
+            line-height: 1.4;
+          "
+        >
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>DISCLAIMER:</strong> TRADI2O IS A TECHNOLOGY PLATFORM FOR
+            ALGORITHMIC TRADING AND ANALYSIS. IT DOES NOT PROVIDE FINANCIAL
+            ADVICE, INVESTMENT RECOMMENDATIONS, OR GUARANTEE PROFITS. TRADING IN
+            FINANCIAL MARKETS INVOLVES SIGNIFICANT RISK, INCLUDING THE RISK OF
+            LOSS OF CAPITAL.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>REGULATORY STATUS:</strong> TRADI2O IS NOT A SEBI-REGISTERED
+            INVESTMENT ADVISOR (RIA) OR PORTFOLIO MANAGER (PMS). IT DOES NOT
+            PROVIDE PERSONALIZED INVESTMENT ADVICE OR MANAGED TRADING SERVICES.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>OPERATIONAL RISK:</strong> MARKET DATA, BROKER APIS, NETWORK
+            CONNECTIVITY, AND SERVER INFRASTRUCTURE MAY EXPERIENCE DISRUPTIONS
+            OR LATENCY. TRADI2O IS NOT RESPONSIBLE FOR FAILED ORDERS, PARTIAL
+            FILLS, DATA DELAYS, OR LOSSES RESULTING FROM TECHNICAL ISSUES.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>DATA ACCURACY:</strong> ANALYTICS AND MARKET DATA ARE
+            SOURCED FROM THIRD PARTIES AND MAY NOT ALWAYS BE ACCURATE, COMPLETE,
+            OR TIMELY. USERS SHOULD INDEPENDENTLY VERIFY ALL INFORMATION.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>USER RESPONSIBILITY:</strong> USERS ARE SOLELY RESPONSIBLE
+            FOR ALL TRADES EXECUTED THROUGH THEIR BROKER ACCOUNTS. TRADI2O DOES
+            NOT EXECUTE TRADES ON BEHALF OF USERS AND DOES NOT MAKE TRADING
+            DECISIONS.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            <strong>COMPLIANCE:</strong> ALL BROKER INTEGRATIONS ADHERE TO SEBI
+            GUIDELINES FOR ALGORITHMIC TRADING. USERS ARE RESPONSIBLE FOR
+            OBTAINING NECESSARY APPROVALS AND UNDERSTANDING THE RISKS ASSOCIATED
+            WITH AUTOMATED EXECUTION.
+          </p>
+
+          <p style="margin-bottom: 0rem; text-align: center">
+            &copy; 2026 TRADI2O. ALL RIGHTS RESERVED. DESIGNED FOR INDIAN
+            EQUITY, ETF &amp; F&amp;O MARKETS. CONTINUOUSLY EVOLVED &amp;
+            IMPROVED.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById("theme-toggle");
+        const sunIcon = document.getElementById("sun-icon");
+        const moonIcon = document.getElementById("moon-icon");
+        const logoDark = document.getElementById("logo-dark");
+        const logoLight = document.getElementById("logo-light");
+        const footerLogoDark = document.getElementById("footer-logo-dark");
+        const footerLogoLight = document.getElementById("footer-logo-light");
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to 'dark'
+        let currentTheme = "dark";
+        try {
+          currentTheme = localStorage.getItem("theme") || "dark";
+        } catch (e) {
+          // localStorage may be unavailable (Safari private mode, etc.)
+          console.warn("localStorage not available, using default theme");
+        }
+        html.setAttribute("data-theme", currentTheme);
+        updateThemeIcon(currentTheme);
+        updateLogos(currentTheme);
+
+        function updateThemeIcon(theme) {
+          if (theme === "light") {
+            sunIcon.style.display = "none";
+            moonIcon.style.display = "block";
+          } else {
+            sunIcon.style.display = "block";
+            moonIcon.style.display = "none";
+          }
+        }
+
+        function updateLogos(theme) {
+          if (theme === "light") {
+            // Light theme: show black logo
+            logoDark.style.opacity = "0";
+            logoLight.style.opacity = "1";
+            footerLogoDark.style.opacity = "0";
+            footerLogoLight.style.opacity = "1";
+          } else {
+            // Dark theme: show white logo
+            logoDark.style.opacity = "1";
+            logoLight.style.opacity = "0";
+            footerLogoDark.style.opacity = "1";
+            footerLogoLight.style.opacity = "0";
+          }
+        }
+
+        themeToggle.addEventListener("click", () => {
+          const currentTheme = html.getAttribute("data-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+          html.setAttribute("data-theme", newTheme);
+          try {
+            localStorage.setItem("theme", newTheme);
+          } catch (e) {
+            // Silently fail if localStorage is not available
+            console.warn("Could not save theme preference");
+          }
+          updateThemeIcon(newTheme);
+          updateLogos(newTheme);
+        });
+
+        // Add stagger index to cards for cascade animation
+        document.querySelectorAll(".grid-3 .card").forEach((card, index) => {
+          card.style.setProperty("--index", index);
+        });
+
+        document
+          .querySelectorAll(".panel-grid .panel-card")
+          .forEach((card, index) => {
+            card.style.setProperty("--index", index);
+          });
+
+        // Intersection Observer for scroll reveal
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+              } else {
+                // Keep active for better UX
+                // entry.target.classList.remove("active");
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+        );
+
+        const selectors = [
+          "section.container > *",
+          "section:not(.container) .container",
+          ".risk-grid",
+          "footer .container",
+        ];
+
+        const targets = document.querySelectorAll(selectors.join(", "));
+        targets.forEach((el) => {
+          el.classList.add("reveal");
+          observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
